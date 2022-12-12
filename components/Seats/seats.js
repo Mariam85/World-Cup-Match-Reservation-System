@@ -1,0 +1,1 @@
+const seatsSchema = require('./seatsSchema')

@@ -1,0 +1,1 @@
+const usersSchema = require('./usersSchema')
