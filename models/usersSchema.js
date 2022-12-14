@@ -1,3 +1,5 @@
+const jwt = require('jsonwebtoken');
+const config=require('config');
 const mongoose=require('mongoose');
 const Schema = mongoose.Schema;
 
@@ -14,6 +16,11 @@ const usersSchema = new mongoose.Schema({
     reservedSeats: [{ type: mongoose.Schema.Types.ObjectId ,ref:'Seat'}] //tickets array
 },{timestamps: true});
 
+// Generating an authentication token.
+usersSchema.methods.createAuthToken= function(){
+    const token = jwt.sign({_id:this.id,role:this.role},config.get('jwtPrivateKey'));
+    return token;
+}
 
 
 const User= mongoose.model('User',usersSchema);

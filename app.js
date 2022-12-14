@@ -11,13 +11,14 @@ if (!config.get('jwtPrivateKey')) {
 const databse = require('./database');
 const port = process.env.PORT || 3000;
 
-var stadiums = require('./components/Venues/venues');    
-var users = require('./components/Users/users');
-var teams = require('./components/Teams/teams');
-var seats = require('./components/Seats/seats');
-var matches = require('./components/Matches/matches');
-var auth = require('./components/Auth/auth');
+var stadiums = require('./routes/venues');    
+var users = require('./routes/users');
+var teams = require('./routes/teams');
+var seats = require('./routes/seats');
+var matches = require('./routes/matches');
+var auth = require('./routes/auth');
 
+app.use(express.json()); // For applying middleware functions. 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 

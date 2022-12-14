@@ -1,1 +1,0 @@
-const teamsSchema = require('./teamsSchema')

@@ -1,6 +1,6 @@
 const _ = require('lodash');
 const config = require('config');
-const User = require('../Users/usersSchema');
+const User = require('../models/usersSchema');
 const express = require('express');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
@@ -21,8 +21,7 @@ router.post('/',async(req,res)=> {
         else
         {
             // The email and password are valid.
-            const token = jwt.sign({_id:user.id},config.get('jwtPrivateKey'));
-            return res.status(200).send(token);
+            return res.status(200).send(user.createAuthToken());
         }
     }
     // Invalid email.

@@ -1,10 +1,9 @@
 const _ = require('lodash');
 const config = require('config')
-const usersSchema = require('./usersSchema');
 const express = require('express');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
-const User = require('./usersSchema');
+const User = require('../models/usersSchema');
 const bcrypt=require('bcrypt')
 const bodyParser = require('body-parser');
 
@@ -24,7 +23,8 @@ router.post('/',async(req,res)=> {
         const salt=await bcrypt.genSalt(10);
         newUser.password= await bcrypt.hash(newUser.password,salt)
         await newUser.save();
-        res.send(_.pick(newUser,['userName','email']))
+        // Token is sent to the client side not saved at the server side(safer).
+        return res.header('x-auth-token',newUser.createAuthToken()).send(_.pick(newUser,['userName','email']));
     }
     else
     {

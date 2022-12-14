@@ -1,1 +1,0 @@
-const venueSchema = require('./venuesSchema')

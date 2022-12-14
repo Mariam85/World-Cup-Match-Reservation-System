@@ -1,1 +1,0 @@
-const matchesSchema = require('./matchesSchema')
