@@ -5,6 +5,7 @@ const config=require("config");
 
 if (!config.get('jwtPrivateKey')) {
     console.error('fatal error: jwtPrivateKey is undefined.'); // $env:WorldCup_jwtPrivateKey="mySecureKey"
+    // $env:jwtPrivateKey="mySecureKey"
     process.exit(1);
 }
 
