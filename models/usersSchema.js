@@ -13,7 +13,8 @@ const usersSchema = new mongoose.Schema({
     birthdate:{type: Date,required :true},
     nationality: {type: String},  //optional
     gender: {type: String, required :true},
-    reservedSeats: [{ type: mongoose.Schema.Types.ObjectId ,ref:'Seat'}] //tickets array
+    reservedSeats: [{ type: mongoose.Schema.Types.ObjectId ,ref:'Seat'}], //tickets array
+    wantsAuthority:{type:Boolean,required: true,default:false} // Represents whether or not the user requests to be a manager. 
 },{timestamps: true});
 
 // Generating an authentication token.

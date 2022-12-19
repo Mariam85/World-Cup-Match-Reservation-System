@@ -18,13 +18,15 @@ var teams = require('./routes/teams');
 var seats = require('./routes/seats');
 var matches = require('./routes/matches');
 var auth = require('./routes/auth');
+var admin = require('./routes/admin');
 
 app.use(express.json()); // For applying middleware functions. 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 app.use('/users', users);
-app.use('/auth',auth)
+app.use('/auth',auth);
+app.use('/admin',admin);
 const server = app.listen(port,()=>
     console.log(`app is running on port ${port}`));
 

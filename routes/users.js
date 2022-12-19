@@ -16,7 +16,7 @@ router.post('/',async(req,res)=> {
     {
         // TODO: modify the role setting part.
         newUser = new User(
-            _.pick(req.body,['userName','firstName','lastName','email','password','role','birthdate','nationality','gender'])
+            _.pick(req.body,['userName','firstName','lastName','email','password','role','birthdate','nationality','gender','wantsAuthority'])
         );
 
         // Hashing the password.
