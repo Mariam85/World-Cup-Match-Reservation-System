@@ -11,14 +11,11 @@ if (!config.get('jwtPrivateKey')) {
 
 const databse = require('./database');
 const port = process.env.PORT || 3000;
-
-var stadiums = require('./routes/venues');    
+ 
 var users = require('./routes/users');
-var teams = require('./routes/teams');
-var seats = require('./routes/seats');
-var matches = require('./routes/matches');
 var auth = require('./routes/auth');
 var admin = require('./routes/admin');
+var manager = require('./routes/manager');
 
 app.use(express.json()); // For applying middleware functions. 
 app.use(bodyParser.json());
@@ -27,6 +24,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use('/users', users);
 app.use('/auth',auth);
 app.use('/admin',admin);
+app.use('/manager',manager);
 const server = app.listen(port,()=>
     console.log(`app is running on port ${port}`));
 

@@ -1,8 +1,9 @@
 const mongoose = require('mongoose');
 
 const venueSchema = new mongoose.Schema({
+    name:{type:String},
     seatsPerRow: {type: Number},
-    numberOfSeats:{type: Number},
+    numberOfRows:{type: Number},
     matchesBooked: [{ type: mongoose.Schema.Types.ObjectId ,ref:'Match'}] 
 },{timestamps: true});
 

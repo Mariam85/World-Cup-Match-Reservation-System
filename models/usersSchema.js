@@ -10,7 +10,7 @@ const usersSchema = new mongoose.Schema({
     email: { type :String,required :true},
     password: {type: String,required :true}, // Hashed password.
     role:{ type:String ,enum: ['Fan','Admin','Manager'],default:'Fan'},
-    birthdate:{type: Date,required :true},
+    birthdate:{type: String,required :true},
     nationality: {type: String},  //optional
     gender: {type: String, required :true},
     reservedSeats: [{ type: mongoose.Schema.Types.ObjectId ,ref:'Seat'}], //tickets array

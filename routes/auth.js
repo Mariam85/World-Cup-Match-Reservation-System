@@ -8,7 +8,11 @@ const bcrypt=require('bcrypt')
 
 // Login functionality. 
 router.post('/',async(req,res)=> {
-
+try{
+    if(req.body.userName==null || req.body.password==null)
+    {
+        return res.status(400).send("One/all of the body parameters sent")
+    }
     let user = await User.findOne({userName:req.body.userName})
     if(user)
     {
@@ -29,7 +33,10 @@ router.post('/',async(req,res)=> {
     {
         return res.status(400).send('Invalid login. Incorrect email or password.')
     }
-
+}catch (error) {
+    console.log(error);
+    return res.status(500).send("Internal Server error");
+}  
 });
 
 module.exports = router;

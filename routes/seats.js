@@ -1,1 +1,0 @@
-const seatsSchema = require('../models/seatsSchema')
