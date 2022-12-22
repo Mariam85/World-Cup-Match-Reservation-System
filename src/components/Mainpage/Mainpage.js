@@ -1,8 +1,20 @@
-import Navbar from "./Navbar";
-import WORLDCUP from '../images/worldcup.png'
+import Navbar from "../Navbar/Navbar";
+import WORLDCUP from "../images/worldcup.png"
 import './Mainpage.css'
+import { useNavigate} from 'react-router-dom';
 
 function Mainpage(){
+    
+    
+    const navigate = useNavigate();
+    const navigateLogin = () => {
+        navigate('/login');
+      };
+
+    const navigateSignup = () => {
+        navigate('/signup');
+      };
+    
     return(
         <div>
             <Navbar />
@@ -10,8 +22,8 @@ function Mainpage(){
                 <div className="desc">
                     <h1>Make your reservation easier</h1>
                     <div>
-                        <button>Login</button>
-                        <button>signup</button>
+                        <button onClick={navigateLogin}>Login</button>
+                        <button onClick={navigateSignup}>signup</button>
                     </div>
                 </div>
                 <div className="cup">
