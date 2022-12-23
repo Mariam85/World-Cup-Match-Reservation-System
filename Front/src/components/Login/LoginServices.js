@@ -15,9 +15,13 @@ const LoginServices =  {
             })
             .then((response) => {
                 // Body of response
-                console.log(response);
+                // console.log(response.data);
                 if (response.status === 200) {
                   go = true;
+                  localStorage.removeItem('AccessToken');
+                  localStorage.setItem('AccessToken', response.data);
+                  console.log(localStorage.getItem('AccessToken'));
+            
                 } else { go = false; }
             });
 

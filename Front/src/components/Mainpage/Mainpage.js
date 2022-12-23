@@ -19,7 +19,7 @@ const Mainpage = () => {
     <div>
       <div className="startContainer">
         <div className="navbar navbar-expand-md navbar-light">
-          <div class="container-fluid">
+          <div className="container-fluid">
             {/* Login */}
 
             <div className="loginbtn">

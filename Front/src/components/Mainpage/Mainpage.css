@@ -1,12 +1,12 @@
 .startContainer {
-    background-image: url('../images/FIFA.jpg');
+    background-image: url('../images/qatar-world-cup.gif');
     background-repeat: no-repeat;
     background-position-x: center;
     background-size: 100% 110%;
     margin: auto auto auto auto;
     width: 100%;
     position: relative;
-    height: 690px;
+    height: 100vh;
     display: grid;
     align-content: flex-start;
 }

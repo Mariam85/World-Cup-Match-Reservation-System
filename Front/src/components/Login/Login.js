@@ -1,11 +1,12 @@
 import "./Login.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import FIFA from "../images/FIFA.jpg";
+import FIFA2022 from "../images/FIFA2022.gif";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import LoginServices from "./LoginServices";
 
-function Login() {
+const Login = () => {
   const navigate = useNavigate();
   //   const [user, setuser] = useState({
 
@@ -40,7 +41,7 @@ function Login() {
     <div className="container-fluid loginPage ">
       <div className="leftImgContainer col-7 d-md-none d-none d-lg-block">
         {/* <h1 >Img</h1> */}
-        <img src={FIFA} class="imgFIFALogin float-left img-fluid" alt="" />
+        <img src={FIFA2022} className="imgFIFALogin float-left img-fluid" alt="" />
       </div>
       <div className="rightDataContainer col d-sm-block">
         {/* <h1>Data</h1> */}
