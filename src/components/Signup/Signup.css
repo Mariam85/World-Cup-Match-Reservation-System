@@ -1,33 +1,34 @@
-
-.flex{
+.flex {
     display: flex;
 }
-.signup1{
+
+.signup1 {
     width: 50vw;
     height: 100vh;
 }
-.signup2{
+
+.signup2 {
     width: 50vw;
     height: 100vh;
     margin-left: 8px;
 }
 
-.fifa{
+.fifa {
     width: 50vw;
     height: 100vh;
- 
+
 }
 
-.form1-flex{
+.form1-flex {
     display: flex;
     margin: auto;
 }
 
-button {
-    background-color: #9B072E; 
+.button1 {
+    background-color: #9B072E;
     color: white;
     border: none;
-    padding: 15px 32px ;
+    padding: 15px 32px;
     text-align: center;
     /* text-decoration: none; */
     display: inline-block;
@@ -36,16 +37,17 @@ button {
     display: block;
     margin-left: auto;
     margin-right: auto;
-  }
+}
 
-  input{
+input {
     margin-right: 20px;
-  }
-h1{
+}
+
+h1 {
     color: #9B072E;
 }
 
-label{
+label {
     font-weight: bold;
     margin-right: 3px;
 }

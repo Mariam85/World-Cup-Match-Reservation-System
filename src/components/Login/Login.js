@@ -16,8 +16,8 @@ function Login() {
     e.preventDefault(); // 👈️ prevent page refresh
 
     // 👇️ access input values here
-    console.log("firstName 👉️", email);
-    console.log("lastName 👉️", password);
+    console.log("Email 👉️", email);
+    console.log("Password 👉️", password);
 
     // 👇️ clear all input values in the form
     setEmail("");
