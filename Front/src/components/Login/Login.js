@@ -51,13 +51,13 @@ const Login = () => {
         >
           <h1 className="h1FIFALogin">Welcome to FIFA 2022</h1>
           <div className="loginInputs">
-            <label className="loginLabel">Email</label>
+            <label className="loginLabel">Username</label>
             <br />
             <input
               type="text"
-              name="email"
+              name="username"
               className="loginInput"
-              placeholder="eg. sarahosama123@gmail.com"
+              placeholder="eg. SaraOsama1"
               onChange={(event) => setUserName(event.target.value)}
               value={userName}
             />
