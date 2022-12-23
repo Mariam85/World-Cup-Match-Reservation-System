@@ -1,0 +1,84 @@
+.loginPage {
+    background-color: rgba(247, 231, 231, 0.591);
+    display: flex;
+    padding-left: 0;
+}
+
+.leftImgContainer {
+    /* background-color: aquamarine; */
+    height: 100vh;
+
+
+}
+
+.imgFIFALogin {
+    height: 100vh;
+}
+
+.rightDataContainer {
+    /* background-color: brown; */
+}
+
+.h1FIFALogin {
+    margin-top: 10%;
+    margin-left: 5%;
+    margin-right: 5%;
+    font-size: 2rem;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: rgb(91, 26, 26);
+    font-weight: normal;
+}
+
+.loginFormContainer {
+    /* background-color: rgb(150, 255, 127); */
+    margin-top: 15%;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+.form-outline {
+    margin-top: 60px;
+    align-content: center;
+}
+
+.loginInputs {
+    margin-top: 5%;
+    margin-bottom: 5%;
+    width: 90%;
+}
+
+.loginInput {
+    padding-left: 10px;
+    border-radius: 4px;
+    height: 50px;
+    width: 100%;
+    border-width: 1px;
+    border-color: rgb(211, 211, 211);
+    border-style: solid;
+    background-color: white;
+}
+
+.loginLabel {
+    margin-bottom: 0%;
+    margin-top: 0%;
+    font-size: 1.2rem;
+    color: rgb(91, 26, 26);
+    font-weight: normal;
+}
+
+.signinButton {
+    width: 90%;
+    height: 35px;
+    margin-top: 3%;
+    margin-bottom: 2%;
+    border-radius: 2px;
+    outline: none;
+    border: none;
+    color: white;
+    font-size: 1rem;
+    background-color: rgba(99, 19, 19, 0.582);
+}
+
+.signinButton:hover {
+    background-color: rgb(99, 19, 19);
+}
