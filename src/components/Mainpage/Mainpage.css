@@ -1,28 +1,48 @@
-.flex-box{
-    display: flex;
+.startContainer {
+    background-image: url('../images/FIFA.jpg');
+    background-repeat: no-repeat;
+    background-position-x: center;
+    background-size: 100% 110%;
+    margin: auto auto auto auto;
+    width: 100%;
+    position: relative;
+    height: 690px;
+    display: grid;
+    align-content: flex-start;
 }
 
-/* .cup{
-    margin: auto;
-} */
 
-.desc{
-    margin: auto;
-}
+.navbar {
 
-.worldcup{
-  
-    height: max-content;
-}
-
-button {
-    background-color: #9B072E; /* Green */
-    color: white;
-    border: none;
-    padding: 15px 32px ;
-    text-align: center;
-    /* text-decoration: none; */
+    /* background-color: aquamarine; */
+    color: azure;
     display: inline-block;
-    font-size: 25px;
-    margin-left: 20px;
-  }
+    text-align: end;
+    padding-right: 10px;
+    margin-left: auto;
+
+}
+
+.mainpageButton {
+    background-color: transparent;
+    border: none;
+    color: rgba(174, 174, 174, 0.945);
+    font-size: 1 rem;
+    font-weight: normal;
+    outline: none;
+    cursor: pointer;
+}
+
+.loginbtn {
+    margin: 4px;
+    float: right;
+}
+
+.signupbtn {
+    margin: 4px;
+    float: right;
+}
+
+.mainpageButton:hover {
+    color: white;
+}
