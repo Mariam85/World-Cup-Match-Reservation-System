@@ -11,7 +11,7 @@ if (!config.get('jwtPrivateKey')) {
 }
 
 const databse = require('./database');
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
  
 var users = require('./routes/users');
 var auth = require('./routes/auth');
