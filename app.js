@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const bodyParser = require("body-parser");
 const config=require("config");
+const cors = require("cors")
 
 if (!config.get('jwtPrivateKey')) {
     console.error('fatal error: jwtPrivateKey is undefined.'); // $env:WorldCup_jwtPrivateKey="mySecureKey"
@@ -18,9 +19,10 @@ var admin = require('./routes/admin');
 var manager = require('./routes/manager');
 var customer = require('./routes/customer');
 
-app.use(express.json()); // For applying middleware functions. 
+app.use(express.json()); 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(cors());
 
 app.use('/users', users);
 app.use('/auth',auth);
