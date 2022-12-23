@@ -11,7 +11,6 @@ const Team=require('../models/teamsSchema');
 const Stadium=require('../models/venuesSchema');
 const Match=require('../models/matchesSchema');
 const Joi = require('joi');
-const JoiEx = require('joi').extend(require('@joi/date')); 
 
 function valid_Signup (body) {
     const schema = Joi.object({

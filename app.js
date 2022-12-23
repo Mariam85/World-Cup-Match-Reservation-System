@@ -16,6 +16,7 @@ var users = require('./routes/users');
 var auth = require('./routes/auth');
 var admin = require('./routes/admin');
 var manager = require('./routes/manager');
+var customer = require('./routes/customer');
 
 app.use(express.json()); // For applying middleware functions. 
 app.use(bodyParser.json());
@@ -25,6 +26,8 @@ app.use('/users', users);
 app.use('/auth',auth);
 app.use('/admin',admin);
 app.use('/manager',manager);
+app.use('/fan',customer);
+
 const server = app.listen(port,()=>
     console.log(`app is running on port ${port}`));
 

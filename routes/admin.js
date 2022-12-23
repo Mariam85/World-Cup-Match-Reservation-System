@@ -81,6 +81,25 @@ router.put('/approveAuthority',[auth,admin],async(req,res)=>{
     }
 });
 
+// Decline authority.
+router.put('/declineAuthority',[auth,admin],async(req,res)=>{
+    try 
+    {
+        let newManagers= await User.findOneAndUpdate({ _id: req.query.id,wantsAuthority:true},{ $set:{'wantsAuthority':'false'}});
+        if(!newManagers)
+        {
+            return res.status(500).send("Internal Server error.");
+        }
+        else if(newManagers.modifiedCount>0)
+        {
+            return res.status(200).send('Successfully declined the request.');   
+        }
+    } 
+    catch (error) {
+        console.log(error);
+        return res.status(500).send("Internal Server error");
+    }
+});
 
 // Getting the users that have requested authority:
 router.get('/fansRequestingAuthority',[auth,admin],async(req,res)=>{

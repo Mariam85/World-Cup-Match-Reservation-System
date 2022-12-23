@@ -241,7 +241,6 @@ catch (error) {
 // Edit the details of an existing match.
 router.put('/editMatch/:matchId',[auth,manager],async(req,res)=>{
 try{
-    console.log(req.body.linesMen)
     var matchFound = await Match.findById(req.params.matchId);
     if(!matchFound)
     {
