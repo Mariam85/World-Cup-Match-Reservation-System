@@ -3,24 +3,36 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import FIFA from "../images/FIFA.jpg";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import LoginServices from "./LoginServices";
 
 function Login() {
   const navigate = useNavigate();
-  const [email, setEmail] = useState("");
+  //   const [user, setuser] = useState({
+
+  //   email: '',
+  //   password: '',
+
+  // });
+
+
+  const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
+
   const navigateSignup = () => {
     navigate("/signup");
   };
+
   const handleSubmit = (e) => {
     console.log("handleSubmit ran");
     e.preventDefault(); // 👈️ prevent page refresh
+    LoginServices.login(userName,password);
 
     // 👇️ access input values here
-    console.log("Email 👉️", email);
+    console.log("Email 👉️", userName);
     console.log("Password 👉️", password);
 
     // 👇️ clear all input values in the form
-    setEmail("");
+    setUserName("");
     setPassword("");
   };
 
@@ -45,8 +57,8 @@ function Login() {
               name="email"
               className="loginInput"
               placeholder="eg. sarahosama123@gmail.com"
-              onChange={(event) => setEmail(event.target.value)}
-              value={email}
+              onChange={(event) => setUserName(event.target.value)}
+              value={userName}
             />
           </div>
 
