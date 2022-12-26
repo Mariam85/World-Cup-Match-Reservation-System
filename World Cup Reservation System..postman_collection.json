@@ -131,6 +131,32 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "getting all users.",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "authToken",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzllMzNjNDc1OWY2ZDAwYmNmZjg5YWYiLCJyb2xlIjoiQWRtaW4iLCJpYXQiOjE2NzEzMTIzMjR9.tfD3gL6PowFanH2yHumcPbVssJcyjznNJ9aB4umZkHM",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3001/admin/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"admin",
+								"users"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -424,6 +450,32 @@
 									"key": "matchId",
 									"value": "63a9cd78a7b5452e9d5f4c1f"
 								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get stadiums available.",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "authToken",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2E1ZTQ5OTdhNGNkNzRlNmVkMDhkNzUiLCJyb2xlIjoiTWFuYWdlciIsImlhdCI6MTY3MjA3MjEzOH0.oU9Slb_cjo9Paror995WsO2I1TB64u74UZ1EwtKuQI4",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3001/manager/stadiums",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"manager",
+								"stadiums"
 							]
 						}
 					},

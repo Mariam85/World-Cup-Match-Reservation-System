@@ -126,4 +126,20 @@ router.get('/fansRequestingAuthority',[auth,admin],async(req,res)=>{
     }
 });
 
+// Getting all users' info except admins.
+router.get('/users',[auth,admin],async(req,res)=>{
+try{
+        const usersFound = await User.find({"role": {$ne :'Admin'}}).select({"userName":1,"firstName":1,"lastName":1,"role":1});
+        if(!usersFound)
+        {
+            return res.status(400).send("no users found.");
+        }
+        res.status(200).send(usersFound);
+    }
+catch (error) {
+        console.log(error);
+        return res.status(500).send("Internal Server error");
+}
+});
+
 module.exports = router;
