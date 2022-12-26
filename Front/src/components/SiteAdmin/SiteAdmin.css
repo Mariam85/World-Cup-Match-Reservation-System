@@ -1,0 +1,58 @@
+.SiteAdminPage {
+    background-color: rgba(247, 231, 231, 0.591);
+    /* padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px; */
+    /* -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05); */
+    display: flex;
+    /* padding-left: 0; */
+}
+
+.leftDataContainerAdmin {
+    background-color: transparent;
+    height: 100vh;
+}
+
+.rightImgContainerAdmin {
+    background-color: transparent;
+    height: 100vh;
+}
+
+.imgFIFAdmin {
+    height: 100vh;
+    padding: 2%;
+}
+
+.LeftDataAdmin {
+
+    background-color: transparent;
+    /* rgba(0, 0, 255, 0.297); */
+    margin-top: 7%;
+    margin-left: 5%;
+    margin-right: 5%;
+    /* font-size: 2rem;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: rgb(91, 26, 26);
+    font-weight: normal; */
+}
+
+.h1HelloMsgAdmin {
+    margin-top: 1%;
+    margin-left: 3%;
+    margin-right: 5%;
+    font-size: 2rem;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: rgb(91, 26, 26);
+    font-weight: bold;
+}
+
+.h2RequestsAdmin {
+    margin-top: 1%;
+    margin-left: 4%;
+    margin-right: 5%;
+    font-size: 2rem;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: rgb(91, 26, 26);
+    font-weight: normal;
+}
