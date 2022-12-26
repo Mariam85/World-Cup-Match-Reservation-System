@@ -4,6 +4,7 @@ import Mainpage from '../components/Mainpage/Mainpage';
 import Login from "../components/Login/Login";
 import Signup from '../components/Signup/Signup';
 import Manger from '../components/Manger/Manger';
+import SiteAdmin from '../components/SiteAdmin/SiteAdmin';
 import { BrowserRouter as Router, Routes,  Route } from "react-router-dom";
 
 
@@ -18,6 +19,8 @@ function App() {
           <Route   path='/signup' element={<Signup />} />
 
           <Route   path='/manger' element={<Manger />} />
+
+          <Route   path='/admin' element={<SiteAdmin />} />
 
         </Routes>
       </Router>
