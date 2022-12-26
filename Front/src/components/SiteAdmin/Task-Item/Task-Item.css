@@ -1,0 +1,66 @@
+.TaskAdmin {
+
+    border-left: 5px solid rgba(91, 26, 26, 0.747);
+}
+
+.TaskContent {
+    display: flex;
+}
+
+.UserInfoAdmin {
+    align-self: start;
+    width: 60%;
+}
+
+.buttonsAdmin {
+
+    margin-left: auto;
+
+
+}
+
+.AcceptButtonAdmin {
+    border-color: #355a4a;
+    color: #355a4a;
+    margin-right: 3px;
+}
+
+.AcceptButtonAdmin:hover {
+    background-color: #355a4a;
+    color: white;
+}
+
+.DeclineButtonAdmin {
+    border-color: rgb(91, 26, 26);
+
+    color: rgb(91, 26, 26);
+}
+
+.DeclineButtonAdmin:hover {
+    background-color: rgb(91, 26, 26);
+    color: white;
+}
+
+
+.userNameAdmin {
+    font-family: 'Work Sans', sans-serif;
+    color: rgb(91, 26, 26);
+    font-weight: 700;
+}
+
+.nameAdmin {
+    margin-top: 5px;
+    margin-left: 2%;
+    margin-bottom: 0;
+    font-family: 'Work Sans', sans-serif;
+    color: rgb(91, 26, 26);
+}
+
+.otherInfoAdmin {
+    margin-top: 5px;
+    margin-left: 2%;
+    margin-bottom: 0;
+    font-family: 'Work Sans', sans-serif;
+    /* font-size: small; */
+    color: rgb(91, 26, 26);
+}

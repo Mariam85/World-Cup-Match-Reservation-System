@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 // For user authorization.
 module.exports = function (req,res,next)
 {
-    const token=req.header('x-auth-token');
+    const token=req.header('authToken');
     if(token)
     {
         try{
