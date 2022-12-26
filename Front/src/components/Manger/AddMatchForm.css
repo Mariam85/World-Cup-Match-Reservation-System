@@ -1,0 +1,58 @@
+.addMatchFormContainer {
+    margin-left: 5%;
+}
+.addMatchLabel {
+    margin-bottom: 0%;
+    margin-top: 0%;
+    font-size: 1.2rem;
+    color: rgb(91, 26, 26);
+    font-weight: normal;
+}
+
+.addMachInputs {
+    margin-top: 5%;
+    margin-bottom: 5%;
+    width: 90%;
+}
+
+.addMatchInput {
+    padding-left: 10px;
+    margin-right: 12px;
+    border-radius: 4px;
+    height: 45px;
+    border-width: 1px;
+    border-color: rgb(211, 211, 211);
+    border-style: solid;
+    background-color: white;
+}
+
+.inlineInput {
+    display: flex;
+
+}
+
+.h2FIFAddMatch {
+    font-size: 1rem;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: rgb(62, 14, 14);
+    font-weight: normal;
+    margin-top: 1%;
+}
+
+.addButton{
+    width: 20%;
+    height: 35px;
+    margin-top: 3%;
+    margin-bottom: 2%;
+    border-radius: 2px;
+    outline: none;
+    border: none;
+    color: white;
+    font-size: 1rem;
+    background-color: rgba(99, 19, 19, 0.582);
+
+}
+
+.addButton:hover {
+    background-color: rgb(99, 19, 19);
+}

@@ -22,7 +22,7 @@ function Signup() {
   const [nationality, setNationality] = useState("");
   const [role, setRole] = useState("");
   const [email, setEmail] = useState("");
-  const [wantsAuthority, setWantsAuthority] = useState(false);
+  var [wantsAuthority, setWantsAuthority] = useState(false);
 
   //Navigation Handles
   const navigateLogin = () => {
