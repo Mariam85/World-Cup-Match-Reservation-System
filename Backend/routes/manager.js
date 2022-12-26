@@ -264,13 +264,23 @@ try{
         var newVenue=(venue) ? venue : matchFound.venue; 
         var newLinesMen=(linesMen) ? linesMen :matchFound.linesMen;
         var newDate=(dateAndTime) ? dateAndTime :matchFound.dateAndTime;
-       
+        if(linesMen)
+        {
+            if(linesMen.length !=2)
+            {
+                return res.status(400).send("Two linesmen should be picked.")   
+            }
+        }
         // Updating teams.
         if(teams)
         {
             if(teams.length!=2)
             {
                 return res.status(400).send("Two teams should be picked.")
+            }
+            if(teams[0]==teams[1])
+            {
+                return res.status(400).send("Two different teams should be picked.") 
             }
 
             var teamOne = await Team.findOneAndUpdate({$expr: {$in: [req.params.matchId, "$matches"]}},{$pull:{matches: req.params.matchId}},{new:true})
@@ -331,25 +341,14 @@ try{
         // If the manager does not want to edit the venue return.
         if(req.body.venue==null)
         {
-            console.log(newMainReferee);
             var newMatchDetails= await Match.findByIdAndUpdate(
                 req.params.matchId,{ $set:{'mainReferee':newMainReferee,'linesMen':newLinesMen,'dateAndTime':newDate}});
-            console.log(newMatchDetails);
                 return res.status(200).send("Successfully edited the match.");
         }
         
         // If the venue is being updated:
         // Update booked matches for the stadium.
         // Remove old seats and add new seats.
-        const query = { name: newVenue};
-        const updateDocument = {
-            $push: { matchesBooked: req.params.matchId}
-        };
-        const updatedStadium = await Stadium.updateOne(query, updateDocument)
-        .catch(error => {
-          console.log(error);
-          return res.status(400).send("Failed to add the match to the matches booked for the stadium");
-        })
 
         var oldStadiumID=matchFound.venue; 
 
@@ -383,17 +382,15 @@ try{
           seatsArray.push(newSeat._id);
         }
         
-        // Add seats array to the match.
-        var result = await Match.findByIdAndUpdate( req.params.matchId,{seats:seatsArray})            
-        .catch(error => {
-            console.log(error);
-            return res.status(400).send("Failed to add the seats array to the match");
-        })
-
         // Updating match details.
-        var newMatchDetails= await Stadium.findOneAndUpdate(
+        var newMatchDetails= await Match.findOneAndUpdate(
                     {_id:req.params.matchId},
-                    {"mainReferee":newMainReferee,"linesMen":newLinesMen,"dateAndTime":newDate,"seats":seatsArray,"venue":newStadium._id});
+                    {"mainReferee":newMainReferee,"linesMen":newLinesMen,"dateAndTime":newDate,"seats":seatsArray,"venue":newStadium._id})
+                    .catch(error => {
+                        console.log(error);
+                        return res.status(400).send("Failed to add the seats array to the match");
+                    })            
+                    
         return res.status(200).send("Successfully edited the match.");            
     }    
 }

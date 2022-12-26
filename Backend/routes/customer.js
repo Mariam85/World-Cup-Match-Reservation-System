@@ -156,7 +156,7 @@ catch (error) {
 router.get('/reservedSeats',auth,async(req,res)=>{
 try{
     const userFound = await User.findById(req.user._id);
-    if(!userfound)
+    if(!userFound)
     {
         return res.status(400).send("The user logged in is not found.");
     }

@@ -1,0 +1,605 @@
+{
+	"info": {
+		"_postman_id": "03162063-cce7-4e9c-8ca6-6388711d34ad",
+		"name": "World Cup Reservation System.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19778442"
+	},
+	"item": [
+		{
+			"name": "Admin",
+			"item": [
+				{
+					"name": "get fans requesting authority.",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "authToken",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzllMzNjNDc1OWY2ZDAwYmNmZjg5YWYiLCJyb2xlIjoiQWRtaW4iLCJpYXQiOjE2NzEzMTIzMjR9.tfD3gL6PowFanH2yHumcPbVssJcyjznNJ9aB4umZkHM",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3001/admin/fansRequestingAuthority",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"admin",
+								"fansRequestingAuthority"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "approve authority",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "authToken",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzllMzNjNDc1OWY2ZDAwYmNmZjg5YWYiLCJyb2xlIjoiQWRtaW4iLCJpYXQiOjE2NzEzMTIzMjR9.tfD3gL6PowFanH2yHumcPbVssJcyjznNJ9aB4umZkHM",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3001/admin/approveAuthority?id=63a5e4997a4cd74e6ed08d75",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"admin",
+								"approveAuthority"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "63a5e4997a4cd74e6ed08d75"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleting a customer",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "authToken",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzllMzNjNDc1OWY2ZDAwYmNmZjg5YWYiLCJyb2xlIjoiQWRtaW4iLCJpYXQiOjE2NzEzMTIzMjR9.tfD3gL6PowFanH2yHumcPbVssJcyjznNJ9aB4umZkHM",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3001/admin/deleteCustomer/:customerId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"admin",
+								"deleteCustomer",
+								":customerId"
+							],
+							"variable": [
+								{
+									"key": "customerId",
+									"value": "63a62741a102c8379c202457"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "decline authority request",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "authToken",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzllMzNjNDc1OWY2ZDAwYmNmZjg5YWYiLCJyb2xlIjoiQWRtaW4iLCJpYXQiOjE2NzEzMTIzMjR9.tfD3gL6PowFanH2yHumcPbVssJcyjznNJ9aB4umZkHM",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3001/admin/declineAuthority?id=63a9c067d1da00403f8134f7",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"admin",
+								"declineAuthority"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "63a9c067d1da00403f8134f7"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Guest",
+			"item": [
+				{
+					"name": "Signup",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userName\": \"Mariam123\",\r\n    \"firstName\" : \"Mariam\",\r\n    \"lastName\": \"Dawood\",\r\n    \"email\" : \"mariammostafa.493@gmail.com\",\r\n    \"password\":\"mariam123\",\r\n    \"birthdate\":\"2000-11-22\",\r\n    \"nationality\":\"Egyptian\",\r\n    \"gender\":\"female\",\r\n    \"wantsAuthority\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3001/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userName\":\"Mariam123\",\r\n    \"password\": \"mariam123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3001/auth",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"auth"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "view match details",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3001/users/matchDetails/:matchId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"users",
+								"matchDetails",
+								":matchId"
+							],
+							"variable": [
+								{
+									"key": "matchId",
+									"value": "63a9cd78a7b5452e9d5f4c1f"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Manager",
+			"item": [
+				{
+					"name": "adding a new stadium.",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "authToken",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2E1ZTQ5OTdhNGNkNzRlNmVkMDhkNzUiLCJyb2xlIjoiTWFuYWdlciIsImlhdCI6MTY3MjA3MjEzOH0.oU9Slb_cjo9Paror995WsO2I1TB64u74UZ1EwtKuQI4",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"stadium\":\"Al Janoub Stadium\",\r\n    \"seatsPerRow\":5,\r\n    \"numberOfRows\":10\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3001/manager/addStadium",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"manager",
+								"addStadium"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get teams",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "authToken",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2E1ZTQ5OTdhNGNkNzRlNmVkMDhkNzUiLCJyb2xlIjoiTWFuYWdlciIsImlhdCI6MTY3MjA3MjEzOH0.oU9Slb_cjo9Paror995WsO2I1TB64u74UZ1EwtKuQI4",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3001/manager/teams",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"manager",
+								"teams"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create match",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "authToken",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2E1ZTQ5OTdhNGNkNzRlNmVkMDhkNzUiLCJyb2xlIjoiTWFuYWdlciIsImlhdCI6MTY3MjA3MjEzOH0.oU9Slb_cjo9Paror995WsO2I1TB64u74UZ1EwtKuQI4",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"venue\":\"Al Janoub Stadium\",\r\n    \"mainReferee\":\"Chris Beath\",\r\n    \"linesMen\":[\"Anton Shchetinin\",\"Ashley Beecham\"],\r\n    \"dateAndTime\":\"Sat, 21 May 2022 00:00:00 GMT\",\r\n    \"teams\":[\"France\",\"Argentina\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3001/manager/createMatch",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"manager",
+								"createMatch"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get match details",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "authToken",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2E1ZTQ5OTdhNGNkNzRlNmVkMDhkNzUiLCJyb2xlIjoiTWFuYWdlciIsImlhdCI6MTY3MjA3MjEzOH0.oU9Slb_cjo9Paror995WsO2I1TB64u74UZ1EwtKuQI4",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3001/manager/matchDetails/:matchId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"manager",
+								"matchDetails",
+								":matchId"
+							],
+							"variable": [
+								{
+									"key": "matchId",
+									"value": "63a9cd78a7b5452e9d5f4c1f"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "view reserved/vacant seats.",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "authToken",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2E1ZTQ5OTdhNGNkNzRlNmVkMDhkNzUiLCJyb2xlIjoiTWFuYWdlciIsImlhdCI6MTY3MjA3MjEzOH0.oU9Slb_cjo9Paror995WsO2I1TB64u74UZ1EwtKuQI4",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3001/manager/viewSeats/:matchId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"manager",
+								"viewSeats",
+								":matchId"
+							],
+							"variable": [
+								{
+									"key": "matchId",
+									"value": "63a9cd78a7b5452e9d5f4c1f"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "edit match details.",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "authToken",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2E1ZTQ5OTdhNGNkNzRlNmVkMDhkNzUiLCJyb2xlIjoiTWFuYWdlciIsImlhdCI6MTY3MjA3MjEzOH0.oU9Slb_cjo9Paror995WsO2I1TB64u74UZ1EwtKuQI4",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"dateAndTime\":\"Sat, 21 June 2022 00:00:00 GMT\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3001/manager/editMatch/:matchId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"manager",
+								"editMatch",
+								":matchId"
+							],
+							"variable": [
+								{
+									"key": "matchId",
+									"value": "63a9cd78a7b5452e9d5f4c1f"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Fan",
+			"item": [
+				{
+					"name": "edit profile's info.",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "authToken",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2E5YzU4ZTEwMjU2MjBkOTNkZjM1ODEiLCJyb2xlIjoiRmFuIiwiaWF0IjoxNjcyMDczMzQ5fQ.dMzWvrUA1HeLZbfMknBcLqtL90IBFTK5hl1mmG-Iix0",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\":\"Mariem\",\r\n    \"nationality\":\"Moroccan\",\r\n    \"birthdate\":\"2000-09-06\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3001/fan/editProfile",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"fan",
+								"editProfile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "reserve a seat.",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "authToken",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2E5YzU4ZTEwMjU2MjBkOTNkZjM1ODEiLCJyb2xlIjoiRmFuIiwiaWF0IjoxNjcyMDczMzQ5fQ.dMzWvrUA1HeLZbfMknBcLqtL90IBFTK5hl1mmG-Iix0",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3001/fan/reserve/:matchId/:seatNumber",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"fan",
+								"reserve",
+								":matchId",
+								":seatNumber"
+							],
+							"variable": [
+								{
+									"key": "matchId",
+									"value": "63a9cd78a7b5452e9d5f4c1f"
+								},
+								{
+									"key": "seatNumber",
+									"value": "4"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "view match seats.",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "authToken",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2E5YzU4ZTEwMjU2MjBkOTNkZjM1ODEiLCJyb2xlIjoiRmFuIiwiaWF0IjoxNjcyMDczMzQ5fQ.dMzWvrUA1HeLZbfMknBcLqtL90IBFTK5hl1mmG-Iix0",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3001/fan/viewSeats/:matchId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"fan",
+								"viewSeats",
+								":matchId"
+							],
+							"variable": [
+								{
+									"key": "matchId",
+									"value": "63a9cd78a7b5452e9d5f4c1f"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "cancel reservation",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "authToken",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2E5YzU4ZTEwMjU2MjBkOTNkZjM1ODEiLCJyb2xlIjoiRmFuIiwiaWF0IjoxNjcyMDczMzQ5fQ.dMzWvrUA1HeLZbfMknBcLqtL90IBFTK5hl1mmG-Iix0",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3001/fan/cancelReservation/:ticketNumber",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"fan",
+								"cancelReservation",
+								":ticketNumber"
+							],
+							"variable": [
+								{
+									"key": "ticketNumber",
+									"value": "1672072568253"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get my reserved seats",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "authToken",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2E5YzU4ZTEwMjU2MjBkOTNkZjM1ODEiLCJyb2xlIjoiRmFuIiwiaWF0IjoxNjcyMDczMzQ5fQ.dMzWvrUA1HeLZbfMknBcLqtL90IBFTK5hl1mmG-Iix0",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3001/fan/reservedSeats",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"fan",
+								"reservedSeats"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

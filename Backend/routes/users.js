@@ -50,7 +50,7 @@ try{
         newUser.password= await bcrypt.hash(newUser.password,salt)
         await newUser.save();
         // Token is sent to the client side not saved at the server side(safer).
-        return res.header('x-auth-token',newUser.createAuthToken()).send(_.pick(newUser,['userName','email']));
+        return res.header('authToken',newUser.createAuthToken()).send(_.pick(newUser,['userName','email']));
     }
     else
     {
