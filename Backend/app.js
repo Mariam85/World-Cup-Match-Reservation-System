@@ -12,17 +12,26 @@ if (!config.get('jwtPrivateKey')) {
 
 const databse = require('./database');
 const port = process.env.PORT || 3001;
- 
+
 var users = require('./routes/users');
 var auth = require('./routes/auth');
 var admin = require('./routes/admin');
 var manager = require('./routes/manager');
 var customer = require('./routes/customer');
 
+var corsOptions = {
+    origin: 'http://localhost:3000',    
+    allowedHeaders: ['authToken'],
+    exposedHeaders: ['authToken'],
+    preflightContinue: true,
+    optionsSuccessStatus: 200 
+}
+
 app.use(express.json()); 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
-app.use(cors());
+app.options('*', cors())
+app.use(cors(corsOptions));
 
 app.use('/users', users);
 app.use('/auth',auth);

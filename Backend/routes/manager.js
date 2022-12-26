@@ -390,7 +390,7 @@ try{
                         console.log(error);
                         return res.status(400).send("Failed to add the seats array to the match");
                     })            
-                    
+
         return res.status(200).send("Successfully edited the match.");            
     }    
 }
@@ -483,5 +483,31 @@ catch (error) {
 }
 });
 
+// Getting all stadiums.
+router.get('/stadiums',[auth,manager],async(req,res)=>{
+    try{
+        let projection={"_id":0,"name":1};
+        var allStadiums =await Stadium.find({}).select(projection);
+        if(!allStadiums)
+        {
+            return res.status(500).send("Internal Server error.");
+        }
+        else
+        {
+            if(allStadiums.length>0)
+            {
+                return res.status(200).send(allStadiums);
+            }
+            else
+            {
+                return res.status(404).send('No stadiums were found.');   
+            }
+        }
+    }
+    catch (error) {
+    console.log(error);
+    return res.status(500).send("Internal Server error");
+}
+});
 
 module.exports=router;
