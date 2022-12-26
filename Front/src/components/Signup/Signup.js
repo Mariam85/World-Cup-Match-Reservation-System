@@ -36,7 +36,7 @@ function Signup() {
     console.log("HandleSubmit Signup");
 
     if (role === "Manager") {
-      setWantsAuthority(true);
+      wantsAuthority=true;
     }
 
     // Send Request

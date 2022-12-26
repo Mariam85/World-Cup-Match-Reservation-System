@@ -1,8 +1,12 @@
 import "./SiteAdmin.css";
 import TaskItem from "./Task-Item/Task-Item";
 import PAGE2022 from "../images/PagesCUP.gif";
+import SiteAdminServices from "./SiteAdminServices";
+import Tasks from "./Tasks";
 
 const SiteAdmin = () => {
+  const Requests=SiteAdminServices();
+  console.log("requests",Requests);
   return (
     <div className="container-fluid SiteAdminPage ">
       <div className="leftDataContainerAdmin col d-lg-block">
@@ -11,7 +15,9 @@ const SiteAdmin = () => {
         <h2 className="h2RequestsAdmin">Requests</h2>
         <div className="LeftDataAdmin justify-content-center">
             {/* <h1>Content</h1> */}
-            <TaskItem/>
+            <Tasks
+            tasks={Requests}
+            />
         </div>
       </div>
 
