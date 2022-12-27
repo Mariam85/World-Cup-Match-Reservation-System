@@ -16,7 +16,7 @@ function Manger() {
     const [openAddStadForm, setAddStadForm] = useState(false);
     const [openViewMatch, setViewMatch] = useState(false);
     const [openViewSeats, setViewSeats] = useState(false);
-
+    const id = ""
 
 
 
@@ -35,24 +35,13 @@ function Manger() {
                 </button>
                 <Collapse in={openAddMatchForm}>
                     <div id="add-match-form">
-                        <AddMatchForm />
+                        <AddMatchForm 
+                        _id={id}
+                        type={true}
+                        />
                     </div>
                 </Collapse>
 
-                {/* Edit existing match details */}
-                <button
-                    onClick={() => setEditMatchForm(!openEditMatchForm)}
-                    aria-controls="add-match-form"
-                    aria-expanded={openEditMatchForm}
-                    className="mangerButtons"
-                >
-                    Edit Match
-                </button>
-                <Collapse in={openEditMatchForm}>
-                    <div id="add-match-form">
-                        {/* <AddMatchForm /> */}
-                    </div>
-                </Collapse>
 
                 {/* adding a new stadium */}
                 <button

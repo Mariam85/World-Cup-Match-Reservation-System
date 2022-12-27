@@ -14,7 +14,7 @@ const MatchItem = ({ Request }) => {
                 <small>{Request.dateAndTime}</small>
 
             </div>
-            {isShown && <AddMatchForm />}
+            {isShown && <AddMatchForm  _id={Request._id} type ={false}/>}
         </div>
 
     );

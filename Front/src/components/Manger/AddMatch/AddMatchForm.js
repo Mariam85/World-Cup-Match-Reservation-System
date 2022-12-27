@@ -3,7 +3,7 @@ import "./AddMatchForm.css"
 import AddMatchServices from "./AddMatchServices";
 import GetTeam from "./GetTeams";
 
-const AddMatchForm = () => {
+const AddMatchForm = ({ _id, type }) => {
 
     const [venue, setVenue] = useState();
     const [mainReferee, setMainReferee] = useState();
@@ -12,14 +12,14 @@ const AddMatchForm = () => {
     const [team1, setTeam1] = useState();
     const [team2, setTeam2] = useState();
     const [dateAndTime, setDateandtime] = useState();
-    const[time, setTime] = useState();
-    
+    const [time, setTime] = useState();
+    console.log("id", _id);
 
 
     const currentTeams = GetTeam();
     console.log("this is the response", currentTeams)
     const Add = currentTeams.map(Add => Add)
-    const temp="Hamada"
+    const temp = "Hamada"
     console.log(dateAndTime)
 
     const handleSubmit = (e) => {
@@ -37,7 +37,7 @@ const AddMatchForm = () => {
         console.log("mainReferee 👉️", mainReferee);
         console.log("LineMen  👉️", linesMen);
         console.log("treams 👉️", teams);
-        console.log("dateAndTime 👉️",dateAndTime);
+        console.log("dateAndTime 👉️", dateAndTime);
 
 
 
@@ -59,12 +59,50 @@ const AddMatchForm = () => {
         // setTeam1("");
         // setTeam2("");
     }
+    const handleEdit = (e) => {
+
+        e.preventDefault();
+
+        console.log("HandleSubmit Edit");
+
+        const linesMen = [line1, line2]
+        const teams = [team1, team2]
+        setDateandtime(new Date(time).toUTCString());
+
+        console.log("venue 👉️", venue);
+        console.log("mainReferee 👉️", mainReferee);
+        console.log("LineMen  👉️", linesMen);
+        console.log("treams 👉️", teams);
+        console.log("dateAndTime 👉️", dateAndTime);
+
+
+        AddMatchServices.edit(_id,
+            venue,
+            mainReferee,
+            linesMen,
+            dateAndTime,
+            teams
+        )
+
+        setVenue("");
+        setMainReferee("");
+        setLine1("");
+        setLine2("");
+        setDate("");
+        setTime("");
+        setTeam1("");
+        setTeam2("");
+
+
+
+
+    }
 
     return (
         <div className="container-fluid">
             <form
                 className="addMatchFormContainer"
-                onSubmit={handleSubmit}
+            // onSubmit={handleSubmit}
             >
                 <h2 className="h2FIFAddMatch">Match Info</h2>
 
@@ -188,10 +226,13 @@ const AddMatchForm = () => {
                     </div>
 
                 </div>
-                <button className="addButton" type="submit">
+                {type && <button className="addButton" onClick={handleSubmit}>
                     Add
                 </button>
-
+                }
+                {!type && <button className="addButton" onClick={handleEdit}>
+                    Edit
+                </button>}
             </form>
         </div>
     )

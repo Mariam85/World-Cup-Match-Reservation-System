@@ -28,7 +28,7 @@ const AddStadiumServices = {
                 console.log(response);
                 if (response.status === 200) {
                     go = true;
-                    const alert = useAlert();
+                    // const alert = useAlert();
                     // alert.show(response.data)
                 } else {
                     go = false;

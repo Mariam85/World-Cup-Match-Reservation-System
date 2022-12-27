@@ -40,31 +40,46 @@ const AddMatchServices = {
         return go;
       },
 
-    getTeams: async (
+      edit: async (_id,
+        venue,
+        mainReferee,
+        linesMen,
+        dateAndTime,
+        teams,
     ) => {
         let go = false;
-        let re = [];
+        const matchId = _id;
         await axios
-          .get("http://localhost:3001/manager/teams", {
+          .put(`http://localhost:3001/manager/editMatch/${matchId}`,{venue,
+          mainReferee,
+          linesMen,
+          dateAndTime,
+          teams,}, {
             headers: {
               // header of request  | if Needed
-             authToken: localStorage.getItem('AccessToken')
+             'authToken': localStorage.getItem('AccessToken'),
+             'content-type':'application/json'
             },
             //body of request
+            venue,
+            mainReferee,
+            linesMen,
+            dateAndTime,
+            teams,
           })
           .then((response) => {
             // Body of response
-            // console.log(response.data);
+            console.log(response);
             if (response.status === 200) {
               go = true;
-              re =response.data;
-              console.log(re) 
             } else {
               go = false;
             }
           });
-        return re;
+    
+        return go;
       },
+
         
 }
 export default AddMatchServices
