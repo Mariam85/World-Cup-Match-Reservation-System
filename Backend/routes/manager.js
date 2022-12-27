@@ -34,11 +34,31 @@ function ticketNum() {
 // Creating a new match event.
 //a team can not have two matches at the same day
 router.post('/createMatch',[auth,manager],async(req,res)=>{
-try{    
+try{
   // Checking that all the required body parameters are given.
   if(req.body.venue==null || req.body.mainReferee==null || req.body.dateAndTime==null || req.body.linesMen==null) 
   {
     return res.status(400).send("1 of the body parameters could not be read.");       
+  }
+  if(req.body.mainReferee.length==0 || req.body.venue.length==0)
+  {
+    return res.status(400).send("1 of the body parameters is empty.");   
+  }
+  if(req.body.dateAndTime=="Invalid Date")
+  {
+    return res.status(400).send("Invalid or empty date.");
+  }
+  if( req.body.teams[0]==null || req.body.teams[1]==null)
+  {
+    return res.status(400).send("One/both team(s) were not picked.");
+  }
+  if(req.body.linesMen[0]==null ||req.body.linesMen[1]==null)
+  {
+    return res.status(400).send("One/both linesmen were not picked.");
+  }
+  if(req.body.linesMen[0].length==0 ||req.body.linesMen[1].length==0)
+  {
+    return res.status(400).send("One/both linesmen were not picked.");
   }
 
   // Checking that the stadium chosen exists.
@@ -67,6 +87,10 @@ try{
   if(teamsArray.length != 2)
   {
     return res.status(400).send('More than 2 teams were picked.');
+  }
+  if(teamsArray[0]==teamsArray[1])
+  {
+    return res.status(400).send('The 2 teams are the same.');
   }
 
   // Checking that the 2 teams chosen are not assigned to matches on the same date.
@@ -251,34 +275,70 @@ try{
         var mainReferee = req.body.mainReferee;
         var linesMen=req.body.linesMen;
         var venue = req.body.venue;
-        var dateAndTime = req.body.dateAndTime;
+        var newDate = req.body.dateAndTime;
         var teams=req.body.teams;
 
         // all the body parameters are null.
-        if(mainReferee==null && linesMen==null && venue==null && dateAndTime==null && teams==null)
+        if(mainReferee==null && linesMen==null && venue==null && (newDate==null || newDate=="Invalid Date" ) && teams==null)
         {
             return res.status(400).send("No body parameter/parameters were given.");
-
         }                     
+        if(linesMen && teams)
+        {
+            if(teams[0]==null && teams[1]==null && ((linesMen[0]==null && linesMen[1]==null)||(linesMen[0]=='' && linesMen[1]=='')) && mainReferee==null && venue==null && (newDate==null || newDate=="Invalid Date" ))
+            {
+                return res.status(400).send("No body parameter/parameters were given.");
+            }
+        }     
+        if(venue)
+        {
+            if(venue.length==0 && teams[0]==null && teams[1]==null && linesMen[0]==null && linesMen[1]==null && mainReferee==null && (newDate==null || newDate=="Invalid Date" ))
+            {
+                return res.status(400).send("No body parameter/parameters were given.");
+            }
+        }   
+
         var newMainReferee = (mainReferee) ? mainReferee : matchFound.mainReferee; 
-        var newVenue=(venue) ? venue : matchFound.venue; 
         var newLinesMen=(linesMen) ? linesMen :matchFound.linesMen;
-        var newDate=(dateAndTime) ? dateAndTime :matchFound.dateAndTime;
+
+        if(mainReferee)
+        {
+            if(mainReferee.length==0)
+            {
+                newMainReferee=matchFound.mainReferee; 
+            }
+        }      
+
+        if(newDate==null || newDate=='Invalid Date')
+        {
+            newDate=matchFound.dateAndTime;
+        }
+
         if(linesMen)
         {
             if(linesMen.length !=2)
             {
                 return res.status(400).send("Two linesmen should be picked.")   
             }
+            if(linesMen[0]==null || linesMen[0]=='')
+            {
+                newLinesMen[0]= matchFound.linesMen[0];
+            }
+            if(linesMen[1]==null|| linesMen[1]=='')
+            {
+                newLinesMen[1]= matchFound.linesMen[1];
+            }
         }
         // Updating teams.
         if(teams)
         {
+          if(teams[0]!=null || teams[1]!=null)
+          {
             if(teams.length!=2)
             {
                 return res.status(400).send("Two teams should be picked.")
             }
-            if(teams[0]==teams[1])
+            if(teams[0]!=null && teams[1]!=null && teams[1]==teams[0])
             {
                 return res.status(400).send("Two different teams should be picked.") 
             }
@@ -294,6 +354,21 @@ try{
                 console.log(error);
                 return res.status(400).send("Failed to unassign the match from an old team.");
             })
+
+            if(teams[0]==null || teams[1]==null)
+            {
+                if(teams[0]==null)
+                {
+                    if(teams[1]!=teamOne)
+                    {
+                        teams[0]=teamOne   
+                    }
+                    else
+                    {
+                        teams[1]=teamTwo      
+                    }
+                }
+            }
 
             // Checking that the 2 teams chosen are not assigned to matches on the same date.
             for(m=0;m<2;m++)
@@ -336,10 +411,21 @@ try{
                     return res.status(400).send("Failed to update the matches assigned to the team.");
                 })
             }
+         }
         }
 
         // If the manager does not want to edit the venue return.
-        if(req.body.venue==null)
+        var noVenue=false;
+        if(venue==null)
+        {
+            noVenue=true;
+        } 
+        else if(venue.length==0)
+        {
+            noVenue=true;
+        }
+
+        if(noVenue)
         {
             var newMatchDetails= await Match.findByIdAndUpdate(
                 req.params.matchId,{ $set:{'mainReferee':newMainReferee,'linesMen':newLinesMen,'dateAndTime':newDate}});
