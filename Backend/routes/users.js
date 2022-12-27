@@ -109,7 +109,7 @@ router.get("/matchDetails/:matchId",async(req,res)=>{
     }
 });
 
-// View all matches' details. 
+// View all matches' details as a guest.  
 router.get("/matchDetails",async(req,res)=>{
     try{    
         var matchesFound = await Match.find({});
@@ -136,6 +136,7 @@ router.get("/matchDetails",async(req,res)=>{
                 teamNames.push(cursor[1].name);
                 //.toDateString()
                 const Obj= ({
+                "_id":matchesFound[i]._id,    
                 "linesMen":matchesFound[i].linesMen,
                 "mainReferee":matchesFound[i].mainReferee,
                 "dateAndTime":matchesFound[i].dateAndTime.toUTCString(),

@@ -12,7 +12,6 @@ const Stadium=require('../models/venuesSchema');
 const Match=require('../models/matchesSchema');
 const uuid = require('uuid');
 const _ = require('lodash');
-const { findById } = require('../models/usersSchema');
 
 function allLetters(fullString){
     return /^[a-zA-Z]+$/.test(fullString);
@@ -303,6 +302,7 @@ router.get("/matchDetails",auth,async(req,res)=>{
                 teamNames.push(cursor[1].name);
                 //.toDateString()
                 const Obj= ({
+                "_id":matchesFound[i]._id,      
                 "linesMen":matchesFound[i].linesMen,
                 "mainReferee":matchesFound[i].mainReferee,
                 "dateAndTime":matchesFound[i].dateAndTime.toUTCString(),
