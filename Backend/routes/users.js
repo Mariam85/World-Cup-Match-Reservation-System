@@ -62,7 +62,7 @@ try{
 }    
 });
 
-// View match details as a guest. 
+// View a single match's details as a guest. 
 router.get("/matchDetails/:matchId",async(req,res)=>{
     try{    
         if(!req.params.matchId )
@@ -107,6 +107,51 @@ router.get("/matchDetails/:matchId",async(req,res)=>{
         console.log(error);
         return res.status(500).send("Internal Server error");
     }
+});
+
+// View all matches' details. 
+router.get("/matchDetails",async(req,res)=>{
+    try{    
+        var matchesFound = await Match.find({});
+        if(!matchesFound)
+        {
+            return res.status(404).send("No matches found.");        
+        }
+        else
+        {
+            var allMatches=[]
+            for(i=0;i<matchesFound.length;i++)
+            {
+                var venueName= await Stadium.findById(matchesFound[i].venue);
+                // return the teams that play in this match
+                var matchID = mongoose.Types.ObjectId(matchesFound[i]._id);
+                var teamNames=[];
+                const cursor = await Team.find({
+                    $expr: {
+                        $in: [matchesFound[i]._id, "$matches"]
+                    }
+                }).limit(2).select({"name":1,"_id":0});
+    
+                teamNames.push(cursor[0].name);
+                teamNames.push(cursor[1].name);
+                //.toDateString()
+                const Obj= ({
+                "linesMen":matchesFound[i].linesMen,
+                "mainReferee":matchesFound[i].mainReferee,
+                "dateAndTime":matchesFound[i].dateAndTime.toUTCString(),
+                "stadium":venueName.name,   
+                "teams":teamNames
+                });
+                allMatches.push(Obj)
+            }
+            return res.status(200).send(allMatches);
+        }
+    } 
+    catch (error) {
+        console.log(error);
+        return res.status(500).send("Internal Server error");
+    }
+    
 });
 
 module.exports = router;

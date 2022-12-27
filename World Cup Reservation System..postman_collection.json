@@ -220,7 +220,7 @@
 					"response": []
 				},
 				{
-					"name": "view match details",
+					"name": "view a single match's details",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -241,6 +241,26 @@
 									"key": "matchId",
 									"value": "63a9cd78a7b5452e9d5f4c1f"
 								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all matches details",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3001/users/matchDetails",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"users",
+								"matchDetails"
 							]
 						}
 					},
@@ -348,7 +368,7 @@
 					"response": []
 				},
 				{
-					"name": "get match details",
+					"name": "get a single match's details",
 					"request": {
 						"method": "GET",
 						"header": [
@@ -476,6 +496,39 @@
 							"path": [
 								"manager",
 								"stadiums"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all matches details",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "authToken",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2E1ZTQ5OTdhNGNkNzRlNmVkMDhkNzUiLCJyb2xlIjoiTWFuYWdlciIsImlhdCI6MTY3MjA3MjEzOH0.oU9Slb_cjo9Paror995WsO2I1TB64u74UZ1EwtKuQI4",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3001/manager/matchDetails",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"manager",
+								"matchDetails"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
 							]
 						}
 					},
@@ -646,6 +699,32 @@
 							"path": [
 								"fan",
 								"reservedSeats"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all matches' details",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "authToken",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2E5YzU4ZTEwMjU2MjBkOTNkZjM1ODEiLCJyb2xlIjoiRmFuIiwiaWF0IjoxNjcyMDczMzQ5fQ.dMzWvrUA1HeLZbfMknBcLqtL90IBFTK5hl1mmG-Iix0",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3001/fan/matchDetails",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"fan",
+								"matchDetails"
 							]
 						}
 					},
