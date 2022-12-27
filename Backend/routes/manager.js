@@ -476,6 +476,7 @@ router.get("/matchDetails",[auth,manager],async(req,res)=>{
                 teamNames.push(cursor[1].name);
                 //.toDateString()
                 const Obj= ({
+                "_id":matchesFound[i]._id,      
                 "linesMen":matchesFound[i].linesMen,
                 "mainReferee":matchesFound[i].mainReferee,
                 "dateAndTime":matchesFound[i].dateAndTime.toUTCString(),
