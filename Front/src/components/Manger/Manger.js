@@ -4,8 +4,9 @@ import FIFA from "../images/FIFA.png";
 import { useState } from "react";
 import Collapse from 'react-bootstrap/Collapse';
 
-import AddMatchForm from "./AddMatchForm";
-
+import AddMatchForm from "./AddMatch/AddMatchForm";
+import ViewMatchDetails from "./View-Match-Details-Manager/ViewMatchDetails";
+import AddStadium from "./AddSatdium/AddStadium";
 
 
 function Manger() {
@@ -21,7 +22,7 @@ function Manger() {
 
     return (
         <div className="container-fluid row manger" >
-            <div className="left-cont col-7 d-sm-block">
+            <div className="left-cont col-7">
                 <h1>HELLO.....</h1>
                 {/* add match functionality */}
                 <button
@@ -49,7 +50,7 @@ function Manger() {
                 </button>
                 <Collapse in={openEditMatchForm}>
                     <div id="add-match-form">
-                        <AddMatchForm />
+                        {/* <AddMatchForm /> */}
                     </div>
                 </Collapse>
 
@@ -64,7 +65,7 @@ function Manger() {
                 </button>
                 <Collapse in={openAddStadForm}>
                     <div id="add-match-form">
-                        <h1>add stadium</h1>
+                        <AddStadium />
                     </div>
                 </Collapse>
 
@@ -79,7 +80,7 @@ function Manger() {
                 </button>
                 <Collapse in={openViewMatch}>
                     <div id="add-match-form">
-                        <h1>match details</h1>
+                        <ViewMatchDetails />
                     </div>
                 </Collapse>
 
