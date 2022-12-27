@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "03162063-cce7-4e9c-8ca6-6388711d34ad",
-		"name": "World Cup Reservation System.",
+		"_postman_id": "b47da6b7-380c-4865-827b-4c290d9f90f5",
+		"name": "World Cup Reservation System. Copy",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "19778442"
 	},
@@ -426,7 +426,7 @@
 							"variable": [
 								{
 									"key": "matchId",
-									"value": "63a9cd78a7b5452e9d5f4c1f"
+									"value": "63ab5bab758e7af95a253cbc"
 								}
 							]
 						}
@@ -446,7 +446,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"dateAndTime\":\"Sat, 21 June 2022 00:00:00 GMT\"\r\n}",
+							"raw": "{\r\n    \"dateAndTime\":\"Sat,21 June 2022 00:00:00 GMT\",\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -526,7 +526,7 @@
 							"query": [
 								{
 									"key": "",
-									"value": null,
+									"value": "",
 									"disabled": true
 								}
 							]
@@ -638,7 +638,7 @@
 							"variable": [
 								{
 									"key": "matchId",
-									"value": "63a9cd78a7b5452e9d5f4c1f"
+									"value": "63ab5bab758e7af95a253cbc"
 								}
 							]
 						}

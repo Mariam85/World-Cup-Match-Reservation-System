@@ -36,11 +36,43 @@ router.get('/viewSeats/:matchId',auth,async(req,res)=>{
         else
         {
             var matchSeatsArray=[];
-            var seatsIDs=matchFound.seats;
+            var eachRow =[];
+            var seatsIDs =matchFound.seats;
+            var matchVenue =await Stadium.findById(matchFound.venue);
+            var arrayLength= matchVenue.seatsPerRow;
+            var seatsPerRow=1
+
             for(i=0;i<seatsIDs.length;i++)
             {
-                const seatsInfo= await Seats.findById(seatsIDs[i]).select({"seatNumber":1,"reserved":1,"_id":0});
-                matchSeatsArray.push(seatsInfo);
+                const seatsInfo= await Seats.findById(seatsIDs[i])
+                // Checking which seats are not reserved.
+                if(seatsInfo.reserved==false)
+                {
+                    const Obj={
+                        "number" :seatsInfo.seatNumber
+                    }
+                    eachRow.push(Obj);
+                }
+                else
+                {
+                    const Obj={
+                        "number" :seatsInfo.seatNumber,
+                        "isReserved":true
+                    }
+                    eachRow.push(Obj);
+                }
+
+                // Checking if the end of the row is reached or not.
+                if(seatsPerRow==arrayLength)
+                {
+                    seatsPerRow=1;
+                    matchSeatsArray.push(eachRow);
+                    eachRow=[];
+                }
+                else
+                {
+                    seatsPerRow++
+                }
             }
             return res.status(200).send(matchSeatsArray);
         }

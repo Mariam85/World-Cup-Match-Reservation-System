@@ -583,36 +583,68 @@ router.get("/matchDetails",[auth,manager],async(req,res)=>{
 
 //  View vacant/reserved seats for each match.
 router.get('/viewSeats/:matchId',[auth,manager],async(req,res)=>{
-try{
-    if(!req.params.matchId )
-    {
-        return res.status(400).send("No match id was provided.");         
-    }
-    if(req.params.matchId==":matchId")
-    {
-        return res.status(400).send("No match id was provided.");  
-    }    
-    var matchFound = await Match.findById(req.params.matchId);
-    if(!matchFound)
-    {
-        return res.status(404).send("The match with this id is not found.");        
-    }
-    else
-    {
-        var matchSeatsArray=[];
-        var seatsIDs=matchFound.seats;
-        for(i=0;i<seatsIDs.length;i++)
+    try{
+        if(!req.params.matchId )
         {
-            const seatsInfo= await Seats.findById(seatsIDs[i]).select({"seatNumber":1,"reserved":1,"_id":0});
-            matchSeatsArray.push(seatsInfo);
+            return res.status(400).send("No match id was provided.");         
         }
-        return res.status(200).send(matchSeatsArray);
+        if(req.params.matchId==":matchId")
+        {
+            return res.status(400).send("No match id was provided.");  
+        }    
+        var matchFound = await Match.findById(req.params.matchId);
+        if(!matchFound)
+        {
+            return res.status(404).send("The match with this id is not found.");        
+        }
+        else
+        {
+            var matchSeatsArray=[];
+            var eachRow =[];
+            var seatsIDs =matchFound.seats;
+            var matchVenue =await Stadium.findById(matchFound.venue);
+            var arrayLength= matchVenue.seatsPerRow;
+            var seatsPerRow=1
+
+            for(i=0;i<seatsIDs.length;i++)
+            {
+                const seatsInfo= await Seats.findById(seatsIDs[i])
+                // Checking which seats are not reserved.
+                if(seatsInfo.reserved==false)
+                {
+                    const Obj={
+                        "number" :seatsInfo.seatNumber
+                    }
+                    eachRow.push(Obj);
+                }
+                else
+                {
+                    const Obj={
+                        "number" :seatsInfo.seatNumber,
+                        "isReserved":true
+                    }
+                    eachRow.push(Obj);
+                }
+
+                // Checking if the end of the row is reached or not.
+                if(seatsPerRow==arrayLength)
+                {
+                    seatsPerRow=1;
+                    matchSeatsArray.push(eachRow);
+                    eachRow=[];
+                }
+                else
+                {
+                    seatsPerRow++
+                }
+            }
+            return res.status(200).send(matchSeatsArray);
+        }
     }
-}
-catch (error) {
-    console.log(error);
-    return res.status(500).send("Internal Server error");
-}
+    catch (error) {
+        console.log(error);
+        return res.status(500).send("Internal Server error");
+    }
 });
 
 // Getting all stadiums.
