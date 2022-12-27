@@ -3,15 +3,15 @@ import { useState ,useEffect} from "react";
 
 const accessToken = localStorage.getItem("AccessToken");
 
-const SiteAdminServices = () => {
-  const [userRequests, setUserRequests] = useState([]);
+const SiteAdminGetUsersServices = () => {
+  const [users, setUsers] = useState([]);
   useEffect(
     () => {
-      const getManagerRequests = async () => {
+      const getUsersAdmin = async () => {
         let go = false;
         // console.log("Token ", accessToken);
         await axios
-          .get("http://localhost:3001/admin/fansRequestingAuthority?", {
+          .get("http://localhost:3001/admin/users", {
             headers: {
               // header of request  | if Needed
               authToken: accessToken,
@@ -21,10 +21,10 @@ const SiteAdminServices = () => {
           .then((response) => {
             // Body of response
             // console.log(response.data);
-            if (response.status === 201) {
+            if (response.status === 200) {
               go = true;
-              const userRequestsServer = response.data;
-              setUserRequests(userRequestsServer);
+              const usersServer = response.data;
+              setUsers(usersServer);
             } else {
               go = false;
             }
@@ -32,13 +32,13 @@ const SiteAdminServices = () => {
 
         // return go
       };
-      getManagerRequests();
+      getUsersAdmin();
     },
     [
       /* dependency array (value when it changes we want the code to run) */
     ]
   );
-  return userRequests;
+  return users;
 };
 
-export default SiteAdminServices;
+export default SiteAdminGetUsersServices;

@@ -4,7 +4,7 @@ import OtherSiteAdminServices from "../OtherSideAdminServices";
 import "./Task-Item.css";
 import Button from "react-bootstrap/Button";
 
-const TaskItem = ({Request}) => {
+const TaskItemUsers = ({Request}) => {
   const [isShown, setIsShown] = useState(false);
   const handleClick = (event) => {
     // 👇️ toggle shown state
@@ -13,15 +13,10 @@ const TaskItem = ({Request}) => {
     // 👇️ or simply set it to true
     // setIsShown(true);
   };
-  const handleClickAccept = (event) => {
+  const handleClickDelete = (event) => {
     // 👇️ Log
-    console.log("Accept");
-    OtherSiteAdminServices.acceptRequest(Request._id)
-  };
-  const handleClickDecline = (event) => {
-    // 👇️ Log
-    console.log("Decline");
-    OtherSiteAdminServices.declineRequest(Request._id)
+    console.log("Delete");
+    OtherSiteAdminServices.deleteUser(Request._id)
   };
   // const [style, setStyle] = useState("userNameAdmin");
   // const changeStyle = () => {
@@ -45,18 +40,11 @@ const TaskItem = ({Request}) => {
           </div>
           <div className="buttonsAdmins">
             <Button
-              className="AcceptButtonAdmin"
-              variant="outline-success"
-              onClick={handleClickAccept}
-            >
-              Accept
-            </Button>
-            <Button
               className="DeclineButtonAdmin"
               variant="outline-danger"
-              onClick={handleClickDecline}
+              onClick={handleClickDelete}
             >
-              Decline
+              Delete
             </Button>
           </div>
         </div>
@@ -65,4 +53,4 @@ const TaskItem = ({Request}) => {
   );
 };
 
-export default TaskItem;
+export default TaskItemUsers;

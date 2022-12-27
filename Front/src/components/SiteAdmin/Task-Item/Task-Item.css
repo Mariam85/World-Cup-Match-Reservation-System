@@ -1,10 +1,15 @@
 .TaskAdmin {
 
-    border-left: 5px solid rgba(91, 26, 26, 0.747);
+    /* border-left: 5px solid rgba(91, 26, 26, 0.747); */
+    margin-left: 3%;
+    margin-top: 1%;
 }
 
 .TaskContent {
     display: flex;
+    background-color: rgba(255, 181, 181, 0.112);
+    margin-left: 3%;
+    border-radius: 3px;
 }
 
 .UserInfoAdmin {
@@ -12,10 +17,10 @@
     width: 60%;
 }
 
-.buttonsAdmin {
+.buttonsAdmins {
 
     margin-left: auto;
-
+    margin-top: 2%;
 
 }
 
@@ -44,7 +49,22 @@
 
 .userNameAdmin {
     font-family: 'Work Sans', sans-serif;
+    color: rgb(97, 53, 53);
+    background-color: rgba(238, 173, 173, 0.234);
+    border-left: 5px solid rgba(215, 123, 123, 0.635);
+    border-radius: 3px;
+}
+
+
+.userNameAdmin:hover,
+.userNameAdminActive {
+    font-family: 'Work Sans', sans-serif;
     color: rgb(91, 26, 26);
+    border-left: 5px solid rgba(91, 26, 26, 0.747);
+    border-radius: 3px;
+    background-color: rgba(151, 35, 35, 0.323);
+
+
     font-weight: 700;
 }
 

@@ -49,7 +49,34 @@ const OtherSiteAdminServices =  {
             });
 
         return go
-    }
+    },
+    deleteUser: async (_id) => {
+        let go = false;
+        const customerId=_id
+        await axios
+            .delete(`http://localhost:3001/admin/deleteCustomer/${customerId}`, {
+                headers: {
+                    // header of request  | if Needed
+                    authToken: accessToken,
+                  },
+                //   params:{
+                //         customerId: _id
+                //   },
+                //body of request
+                
+
+            })
+            .then((response) => {
+                // Body of response
+                console.log(response);
+                if (response.status === 202) {
+                  go = true;
+            
+                } else { go = false; }
+            });
+
+        return go
+    },
 }
  
 export default OtherSiteAdminServices;
