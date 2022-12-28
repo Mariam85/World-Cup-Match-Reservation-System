@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const bodyParser = require("body-parser");
 const cors = require("cors")
+const dotenv=require("dotenv").config();
 
 const database = require('./database');
 const port = process.env.PORT || 3001;
@@ -12,8 +13,7 @@ var admin = require('./routes/admin');
 var manager = require('./routes/manager');
 var customer = require('./routes/customer');
 
-var corsOptions = {
-    origin: 'http://localhost:3000',    
+var corsOptions = {    
     allowedHeaders: ['authToken'],
     exposedHeaders: ['authToken'],
     preflightContinue: true,
