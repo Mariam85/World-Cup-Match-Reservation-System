@@ -17,21 +17,6 @@ const {
     v4: uuidv4,
   } = require('uuid');
 
-function reserv()
-{
-    if(this.reserved)
-    {
-        console.log("+")
-        return "+reserved"
-    }
-    else
-    {
-        console.log("-")
-        return "-reserved"
-    }
-}
-
-
 // Function to generate unique ticket numbers.
 function ticketNum() {
     var date = Date.now();
@@ -51,39 +36,41 @@ function ticketNum() {
 router.post('/createMatch',[auth,manager],async(req,res)=>{
 try{
   // Checking that all the required body parameters are given.
-  if(req.body.venue==null || req.body.mainReferee==null || req.body.dateAndTime==null || req.body.linesMen==null) 
+  if(req.body.linesMen[0]==null ||req.body.linesMen[1]==null || req.body.venue==null || req.body.mainReferee==null || req.body.dateAndTime==null || req.body.linesMen==null || req.body.dateAndTime=="Invalid Date") 
   {
     return res.status(400).send("1 of the body parameters could not be read.");       
   }
-  if(req.body.mainReferee.length==0 || req.body.venue.length==0)
+  if(req.body.linesMen[0].length==0 ||req.body.linesMen[1].length==0 || req.body.mainReferee.length==0 || req.body.venue.length==0 || req.body.teams[0]==null || req.body.teams[1]==null)
   {
     return res.status(400).send("1 of the body parameters is empty.");   
   }
-  if(req.body.dateAndTime=="Invalid Date")
-  {
-    return res.status(400).send("Invalid or empty date.");
-  }
-  if( req.body.teams[0]==null || req.body.teams[1]==null)
-  {
-    return res.status(400).send("One/both team(s) were not picked.");
-  }
-  if(req.body.linesMen[0]==null ||req.body.linesMen[1]==null)
-  {
-    return res.status(400).send("One/both linesmen were not picked.");
-  }
-  if(req.body.linesMen[0].length==0 ||req.body.linesMen[1].length==0)
-  {
-    return res.status(400).send("One/both linesmen were not picked.");
-  }
 
-  // Checking that the stadium chosen exists.
-  var stadiumChosen= await Stadium.findOne({"name":req.body.venue});
-  if(!stadiumChosen)
-  {
-    return res.status(400).send('The venue name entered does not exist.'); 
-  }
+
+//   if( req.body.teams[0]==null || req.body.teams[1]==null)
+//   {
+//     return res.status(400).send("One/both team(s) were not picked.");
+//   }
+//   if(req.body.linesMen[0]==null ||req.body.linesMen[1]==null)
+//   {
+//     return res.status(400).send("One/both linesmen were not picked.");
+//   }
+//   if(req.body.linesMen[0].length==0 ||req.body.linesMen[1].length==0)
+//   {
+//     return res.status(400).send("One/both linesmen were not picked.");
+//   }
+
+
+// Already ensured with get stadiums request.
+// Checking that the stadium chosen exists.
+//      var stadiumChosen= await Stadium.findOne({"name":req.body.venue});
+//   if(!stadiumChosen)
+//   {
+//     return res.status(400).send('The venue name entered does not exist.'); 
+//   }
   
   // Checking that the match being created does not exist.
+  
+  var stadiumChosen= await Stadium.findOne({"name":req.body.venue});
   var matchExists=await Match.findOne({"linesMen":req.body.linesMen,"mainReferee":req.body.mainReferee,"dateAndTime":req.body.dateAndTime,"venue":stadiumChosen._id});
   if(matchExists)
   {
@@ -97,53 +84,77 @@ try{
     return res.status(400).send('A match in this venue at this time exists.');  
   }
 
+  // Already ensured(2 text boxes).
   // Checking that only 2 teams are chosen.
-  var teamsArray = req.body.teams;
-  if(teamsArray.length != 2)
-  {
-    return res.status(400).send('More than 2 teams were picked.');
-  }
-  if(teamsArray[0]==teamsArray[1])
+//   if(teamsArray.length != 2)
+//   {
+//     return res.status(400).send('More than 2 teams were picked.');
+//   }
+
+
+  if(req.body.teams[0]==req.body.teams[1])
   {
     return res.status(400).send('The 2 teams are the same.');
   }
 
   // Checking that the 2 teams chosen are not assigned to matches on the same date.
-  for(m=0;m<2;m++)
-  {
-    // Checking that the teams exist.
-    var result=await Team.find({name:teamsArray[m]});
-    if(!result)
+//   for(m=0;m<2;m++)
+//   {
+    //Checking that the teams exist.
+    let teamsInfo = await Team.find({name:{$in:req.body.teams}}).populate("matches")
+
+    //Already existing because of get teams endpoint.
+    // if(!teamInfoTwo)
+    // {
+    //     return res.status(400).send('One/All of the teams picked do not exist.'); 
+    // }
+    // if(teamInfoTwo.length==0)
+    // {
+    //     return res.status(400).send('One/All of the teams picked do not exist.');        
+    // } 
+    var matchesAssignedOne = teamsInfo[0].matches; //arr of matches
+    var matchesAssignedTwo = teamsInfo[1].matches; //arr of matches
+    var matcheslengthOne=matchesAssignedOne.length;
+    var matcheslengthTwo=matchesAssignedTwo.length;
+  //  console.log(matchesAssignedOne)
+    if(matchesAssignedOne)
     {
-        return res.status(400).send('One/All of the teams picked do not exist.'); 
-    }
-    if(result.length==0)
-    {
-        return res.status(400).send('One/All of the teams picked do not exist.');        
-    }
-    
-    var matchesAssigned = result.matches;
-    if(matchesAssigned)
-    {
-        if(matchesAssigned.length>0)
+        if(matchesAssignedOne.length>0)
         {
-            for(k=0;k<matchesAssigned.length;k++)
+            var iteratorOne=0
+            var iteratorTwo=0
+
+            while(iteratorOne!=matchesAssignedOne.length && iteratorTwo!=matchesAssignedTwo.length)
             {
-                teamMatch= await Match.findById(matchesAssigned[k])
-                if(teamMatch.dateAndTime == req.body.dateAndTime)
+                if(iteratorOne!=matcheslengthOne)
                 {
-                    return res.status(400).send('One of the teams is assigned to another match on the same date.');  
+                    // console.log(iteratorOne)
+                    // console.log(matchesAssignedOne[iteratorOne].dateAndTime.toUTCString())
+                    // console.log(req.body.dateAndTime)
+                    if(matchesAssignedOne[iteratorOne].dateAndTime.toUTCString() == req.body.dateAndTime)
+                    {
+                        return res.status(400).send("This team has another match at the same time.");
+                    }
+                    iteratorOne++
+                }
+                if(iteratorTwo!=matcheslengthTwo)
+                {
+                    if(matchesAssignedOne[iteratorTwo].dateAndTime.toUTCString() == req.body.dateAndTime)
+                    {
+                        return res.status(400).send("This team has another match at the same time.");
+                    }
+                    iteratorTwo++
                 }
             }
         }
     }
-   }
-
+   
+  var stadiumChosen= await Stadium.findOne({"name":req.body.venue});
+  console.log(stadiumChosen)
   var numRows=stadiumChosen.numberOfRows;
   var numSeatsPerRow=stadiumChosen.seatsPerRow;
   var totalNumSeats= numRows*numSeatsPerRow;
 
-  // Add match.
   var newMatch = new Match({
     linesMen: req.body.linesMen,
     mainReferee: req.body.mainReferee,
@@ -151,15 +162,10 @@ try{
     seats: [], 
     dateAndTime: req.body.dateAndTime 
   });
-  await newMatch.save()
-  .catch(error => {
-    console.log(error);
-    return res.status(400).send("Failed to save the match");
-  })
 
   var matchID = mongoose.Types.ObjectId(newMatch._id);
   var seatsArray=[];
-  // Add seats.
+
   for(j=0;j<totalNumSeats;j++)
   {
     var newSeat = new Seats({
@@ -167,14 +173,24 @@ try{
                 seatNumber: j+1,
                 ticketNumber:ticketNum(),
                 match: matchID
-                });    
-    await newSeat.save()
-    .catch(error => {
-        console.log(error);
-        return res.status(400).send("Failed to save seats.");
-      })            
-    seatsArray.push(newSeat._id);
-  }
+                }); 
+    seatsArray.push(newSeat);                
+   }
+
+  // Add seats.
+  var addedSeats=await Seats.insertMany(seatsArray)
+  .catch(error => {
+      console.log(error);
+      return res.status(400).send("Failed to save seats.");
+ })            
+
+   //Add match.
+   newMatch.seats=seatsArray;
+   await newMatch.save()
+   .catch(error => {
+    console.log(error);
+    return res.status(400).send("Failed to add the new match");
+   })
 
   // Add match to the matches booked for the stadium.
   const query = { name:  stadiumChosen.name};
@@ -187,26 +203,13 @@ try{
     return res.status(400).send("Failed to add the match to the matches booked for the stadium");
   })
 
-  // Add seats array to the match.
-  var result = await Match.findByIdAndUpdate( matchID,{seats:seatsArray})            
-  .catch(error => {
-    console.log(error);
-    return res.status(400).send("Failed to add the seats array to the match");
-  })
-
   // Add the matchid to both teams.
-  for(y=0;y<2;y++)
-  {
-    const query = { name:  teamsArray[y]};
-    const updateDocument = {
-        $push: { matches: matchID}
-    };
-    const result = await Team.updateOne(query, updateDocument)
+    const resultt = await Team.updateMany({name:{$in:req.body.teams}},{$push:{matches:matchID}})
     .catch(error => {
         console.log(error);
         return res.status(400).send("Failed to update the matches assigned to the team.");
       })
-  }
+  
   return res.status(200).send("Successfully added a new match.");
 }
 catch (error) {
