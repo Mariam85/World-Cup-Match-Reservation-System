@@ -1,4 +1,5 @@
 import axios from "axios";
+import jwt_decode from "jwt-decode";
 
 
 const LoginServices =  {
@@ -21,7 +22,8 @@ const LoginServices =  {
                   localStorage.removeItem('AccessToken');
                   localStorage.setItem('AccessToken', response.data);
                   console.log(localStorage.getItem('AccessToken'));
-            
+                  var decoded = jwt_decode(localStorage.getItem('AccessToken')); 
+                  console.log(decoded)
                 } else { go = false; }
             });
 

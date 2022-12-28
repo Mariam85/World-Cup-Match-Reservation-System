@@ -1,5 +1,4 @@
 const _ = require('lodash');
-const config = require('config')
 const mongoose = require('mongoose');
 const express = require('express');
 const router = express.Router();
