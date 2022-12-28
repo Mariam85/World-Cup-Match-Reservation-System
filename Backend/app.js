@@ -1,16 +1,9 @@
 const express = require('express');
 const app = express();
 const bodyParser = require("body-parser");
-const config=require("config");
 const cors = require("cors")
 
-if (!config.get('jwtPrivateKey')) {
-    console.error('fatal error: jwtPrivateKey is undefined.'); // $env:WorldCup_jwtPrivateKey="mySecureKey"
-    // $env:jwtPrivateKey="mySecureKey"
-    process.exit(1);
-}
-
-const databse = require('./database');
+const database = require('./database');
 const port = process.env.PORT || 3001;
 
 var users = require('./routes/users');

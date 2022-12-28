@@ -31,5 +31,4 @@
 
     cd .\Backend\
     npm install
-    $env:WorldCup_jwtPrivateKey="mySecureKey"
     node app.js
