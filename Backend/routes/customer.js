@@ -27,55 +27,26 @@ router.get('/viewSeats/:matchId',auth,async(req,res)=>{
         if(req.params.matchId==":matchId")
         {
             return res.status(400).send("No match id was provided.");  
-        }    
-        var matchFound = await Match.findById(req.params.matchId);
-        if(!matchFound)
-        {
-            return res.status(404).send("The match with this id is not found.");        
-        }
+        }  
+
+       var matchFound = await Match.findById(req.params.matchId).populate({
+           path: 'seats'
+       })        
+       if(!matchFound)
+       {
+         return res.status(404).send("The match with this id is not found.");        
+       }
+       else
+       {
+        var obj = { };
+        obj=matchFound.seats;
+        newObj = obj.map(u =>{ if(u.reserved){return{number: u.seatNumber,isReserved: u.reserved}}
+        else{return{number: u.seatNumber}}});
+        if(newObj)
+            {return res.status(200).send(newObj);}
         else
-        {
-            var matchSeatsArray=[];
-            var eachRow =[];
-            var seatsIDs =matchFound.seats;
-            var matchVenue =await Stadium.findById(matchFound.venue);
-            var arrayLength= matchVenue.seatsPerRow;
-            var seatsPerRow=1
-
-            for(i=0;i<seatsIDs.length;i++)
-            {
-                const seatsInfo= await Seats.findById(seatsIDs[i])
-                // Checking which seats are not reserved.
-                if(seatsInfo.reserved==false)
-                {
-                    const Obj={
-                        "number" :seatsInfo.seatNumber
-                    }
-                    eachRow.push(Obj);
-                }
-                else
-                {
-                    const Obj={
-                        "number" :seatsInfo.seatNumber,
-                        "isReserved":true
-                    }
-                    eachRow.push(Obj);
-                }
-
-                // Checking if the end of the row is reached or not.
-                if(seatsPerRow==arrayLength)
-                {
-                    seatsPerRow=1;
-                    matchSeatsArray.push(eachRow);
-                    eachRow=[];
-                }
-                else
-                {
-                    seatsPerRow++
-                }
-            }
-            return res.status(200).send(matchSeatsArray);
-        }
+            {return res.status(400).send("Internal server error.");}
+       }
     }
     catch (error) {
         console.log(error);
@@ -186,7 +157,11 @@ catch (error) {
 // get reserved seats.
 router.get('/reservedSeats',auth,async(req,res)=>{
 try{
-    const userFound = await User.findById(req.user._id);
+    const userFound = await User.findById(req.user._id).populate({
+        path: 'reservedSeats',
+        select: { '_id': 0,'seatNumber':1,'ticketNumber':1},  
+    });
+
     if(!userFound)
     {
         return res.status(400).send("The user logged in is not found.");
@@ -201,8 +176,8 @@ try{
     {
         return res.status(400).send("No reserved seats were found.");
     }
-    var seatsInfo= await Seats.find({_id:{$in:seats}}).select({"_id":0,"seatNumber":1,"ticketNumber":1});
-    res.status(200).send(seatsInfo);
+
+    res.status(200).send(seats);
 }
 catch (error) {
     console.log(error);
@@ -310,40 +285,45 @@ catch (error) {
 // View all matches' details. 
 router.get("/matchDetails",auth,async(req,res)=>{
     try{    
-        var matchesFound = await Match.find({});
+        var matchesFound = await Match.aggregate([
+            {
+              $lookup:
+              {
+                 from: 'teams', 
+                 localField:'_id', 
+                 foreignField:'matches',
+                 as:'teams',          
+              }
+            },
+            {
+                $set: {
+                    teams: [ {$arrayElemAt: ["$teams.name", 0]},{$arrayElemAt: ["$teams.name", 1]} ]
+                }
+            },
+            {
+                $lookup:
+                {
+                   from: 'venues', 
+                   localField:'venue', 
+                   foreignField:'_id',
+                   as:'venue',          
+                }
+            },
+            {
+                $set: {
+                    venue: "$venue.name"
+                }
+            },            
+            ]);
+
         if(!matchesFound)
         {
             return res.status(404).send("No matches found.");        
         }
         else
         {
-            var allMatches=[]
-            for(i=0;i<matchesFound.length;i++)
-            {
-                var venueName= await Stadium.findById(matchesFound[i].venue);
-                // return the teams that play in this match
-                var matchID = mongoose.Types.ObjectId(matchesFound[i]._id);
-                var teamNames=[];
-                const cursor = await Team.find({
-                    $expr: {
-                        $in: [matchesFound[i]._id, "$matches"]
-                    }
-                }).limit(2).select({"name":1,"_id":0});
-    
-                teamNames.push(cursor[0].name);
-                teamNames.push(cursor[1].name);
-                //.toDateString()
-                const Obj= ({
-                "_id":matchesFound[i]._id,      
-                "linesMen":matchesFound[i].linesMen,
-                "mainReferee":matchesFound[i].mainReferee,
-                "dateAndTime":matchesFound[i].dateAndTime.toUTCString(),
-                "stadium":venueName.name,   
-                "teams":teamNames
-                });
-                allMatches.push(Obj)
-            }
-            return res.status(200).send(allMatches);
+
+            return res.status(200).send(matchesFound);
         }
     } 
     catch (error) {
