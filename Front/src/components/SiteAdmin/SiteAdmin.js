@@ -12,7 +12,7 @@ const SiteAdmin = () => {
   useEffect;
   const Requests = SiteAdminServices();
   const Users = SiteAdminGetUsersServices();
-  // console.log("requests", Requests);
+  console.log("requests", localStorage.getItem("AccessToken"));
   const [isShown1, setIsShown1] = useState(false);
   const [isShown2, setIsShown2] = useState(false);
   

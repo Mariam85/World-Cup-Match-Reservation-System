@@ -5,7 +5,7 @@ const Match = ({ matches }) => {
     <>
       {matches.map((match) => (
         <MatchItem
-            key={match.id}
+            key={match._id}
             Request={match}
         />
       ))}
