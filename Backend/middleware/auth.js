@@ -7,7 +7,7 @@ module.exports = function (req,res,next)
     if(token)
     {
         try{
-            const privateKey= config.get('jwtPrivateKey');
+            const privateKey= process.env.mySecureKey
             const payloadDecoded = jwt.verify(token,privateKey);
             req.user = payloadDecoded; // To access the id ---> req.user._id
             next();
