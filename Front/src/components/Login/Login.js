@@ -15,18 +15,36 @@ const Login = () => {
 
   // });
 
-
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
 
-  const navigateSignup = () => {
-    navigate("/signup");
-  };
 
-  const handleSubmit = (e) => {
+  // Define Navigations 
+  const navigateAdmin = () => {
+    navigate("/admin");
+  };
+  const navigateManager = () => {
+    navigate("/manger");
+  };
+  const navigateFan = () => {
+    navigate("/fan");
+  };
+  //Handle submit and routing 
+  const handleSubmit = async (e) => {
     console.log("handleSubmit ran");
     e.preventDefault(); // 👈️ prevent page refresh
-    LoginServices.login(userName,password);
+    let role = await LoginServices.login(userName, password);
+
+    // console.log("token",localStorage.getItem("AccessToken"));
+    if (role === "Manager") {
+      navigateManager();
+    } else if (role === "Fan") {
+      navigateFan();
+    } else if (role === "Admin") {
+      navigateAdmin();
+    }
+    
+    // console.log("role",role);
 
     // 👇️ access input values here
     console.log("Email 👉️", userName);
@@ -41,7 +59,11 @@ const Login = () => {
     <div className="container-fluid loginPage ">
       <div className="leftImgContainer col-7 d-md-none d-none d-lg-block">
         {/* <h1 >Img</h1> */}
-        <img src={FIFA2022} className="imgFIFALogin float-left img-fluid" alt="" />
+        <img
+          src={FIFA2022}
+          className="imgFIFALogin float-left img-fluid"
+          alt=""
+        />
       </div>
       <div className="rightDataContainer col d-sm-block">
         {/* <h1>Data</h1> */}
@@ -82,6 +104,6 @@ const Login = () => {
       </div>
     </div>
   );
-}
+};
 
 export default Login;

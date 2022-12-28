@@ -23,7 +23,7 @@ const FanPage = () => {
     <div className="container-fluid SiteAdminPage ">
       <div className="leftDataContainerAdmin col d-lg-block">
         {/* LeftSide */}
-        <h1 className="h1HelloMsgAdmin">Hello Admin</h1>
+        <h1 className="h1HelloMsgAdmin">Hello Fan</h1>
         <h2 className="h2RequestsAdmin">Requests</h2>
         <div className="LeftDataAdmin ">
           {/* <h1>Content</h1> */}
