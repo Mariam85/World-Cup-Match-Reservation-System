@@ -68,14 +68,16 @@ try{
 //     return res.status(400).send('The venue name entered does not exist.'); 
 //   }
   
-  // Checking that the match being created does not exist.
   
-  var stadiumChosen= await Stadium.findOne({"name":req.body.venue});
-  var matchExists=await Match.findOne({"linesMen":req.body.linesMen,"mainReferee":req.body.mainReferee,"dateAndTime":req.body.dateAndTime,"venue":stadiumChosen._id});
-  if(matchExists)
-  {
-    return res.status(400).send('This match already exists.'); 
-  }
+var stadiumChosen= await Stadium.findOne({"name":req.body.venue});
+
+  //not necessary because I check that stadium and time are not the same as an existing one.
+  // Checking that the match being created does not exist.
+//   var matchExists=await Match.findOne({"linesMen":req.body.linesMen,"mainReferee":req.body.mainReferee,"dateAndTime":req.body.dateAndTime,"venue":stadiumChosen._id});
+//   if(matchExists)
+//   {
+//     return res.status(400).send('This match already exists.'); 
+//   }
 
   // Checking that no other match is on the same date in the same stadium. 
   var conflictingMatches= await Match.findOne({"venue":stadiumChosen._id,"dateAndTime":req.body.dateAndTime});
@@ -112,40 +114,42 @@ try{
     // {
     //     return res.status(400).send('One/All of the teams picked do not exist.');        
     // } 
-    var matchesAssignedOne = teamsInfo[0].matches; //arr of matches
-    var matchesAssignedTwo = teamsInfo[1].matches; //arr of matches
-    var matcheslengthOne=matchesAssignedOne.length;
-    var matcheslengthTwo=matchesAssignedTwo.length;
-  //  console.log(matchesAssignedOne)
+    var matchesAssignedOne = teamsInfo[0].matches; 
+    var matchesAssignedTwo = teamsInfo[1].matches; 
+    var matcheslengthOne=0;
+    var matcheslengthTwo=0;
+    var dayOnly=req.body.dateAndTime.substring(0,req.body.dateAndTime.length-12);
+
     if(matchesAssignedOne)
     {
-        if(matchesAssignedOne.length>0)
-        {
-            var iteratorOne=0
-            var iteratorTwo=0
+        matcheslengthOne=matchesAssignedOne.length;
+    }
+    if(matchesAssignedTwo)
+    {
+        matcheslengthTwo=matchesAssignedTwo.length;
+    }    
 
-            while(iteratorOne!=matchesAssignedOne.length && iteratorTwo!=matchesAssignedTwo.length)
+    var iteratorOne=0
+    var iteratorTwo=0
+    console.log(matchesAssignedOne)
+    console.log(matchesAssignedTwo)
+    while(iteratorOne!=matcheslengthOne || iteratorTwo!=matcheslengthTwo)
+    {
+        if(iteratorOne!=matcheslengthOne)
+        {
+            if(matchesAssignedOne[iteratorOne].dateAndTime.toUTCString().includes(dayOnly))
             {
-                if(iteratorOne!=matcheslengthOne)
-                {
-                    // console.log(iteratorOne)
-                    // console.log(matchesAssignedOne[iteratorOne].dateAndTime.toUTCString())
-                    // console.log(req.body.dateAndTime)
-                    if(matchesAssignedOne[iteratorOne].dateAndTime.toUTCString() == req.body.dateAndTime)
-                    {
-                        return res.status(400).send("This team has another match at the same time.");
-                    }
-                    iteratorOne++
-                }
-                if(iteratorTwo!=matcheslengthTwo)
-                {
-                    if(matchesAssignedOne[iteratorTwo].dateAndTime.toUTCString() == req.body.dateAndTime)
-                    {
-                        return res.status(400).send("This team has another match at the same time.");
-                    }
-                    iteratorTwo++
-                }
+                return res.status(400).send("This team has another match at the same time.");
             }
+            iteratorOne++
+        }
+        if(iteratorTwo!=matcheslengthTwo)
+        {
+            if(matchesAssignedTwo[iteratorTwo].dateAndTime.toUTCString().includes(dayOnly))
+            {
+                return res.status(400).send("This team has another match at the same time.");
+            }
+            iteratorTwo++
         }
     }
    
