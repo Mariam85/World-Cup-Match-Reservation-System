@@ -31,30 +31,28 @@ const OtherFanPageServices = {
     return go;
   },
   editFanData: async (
-    _id,
-    userName,
       password,
       firstName,
       lastName,
       birthdate,
       gender,
       nationality,
-      email
+      
   ) => {
     let go = false;
-    const matchId = _id;
+    
     await axios
       .patch(
         `http://localhost:3001/fan/editProfile`,
         {
-            userName,
-            password,
+            
             firstName,
             lastName,
             birthdate,
             gender,
             nationality,
-            email
+            password,
+            
         },
         {
           headers: {
@@ -63,14 +61,14 @@ const OtherFanPageServices = {
             "content-type": "application/json",
           },
           //body of request
-          userName,
-          password,
+          
           firstName,
           lastName,
           birthdate,
           gender,
           nationality,
-          email
+          password,
+          
         }
       )
       .then((response) => {

@@ -24,22 +24,15 @@ const EditUserDetails = () => {
 
     // Send Request
     setGoLogin( OtherFanPageServices.editFanData(
-      userName,
+      
       password,
       firstName,
       lastName,
       birthdate,
       gender,
-      nationality,
-      email
+      nationality
     ));
-
-    if (goLogin) {
-        alert("Edited")
-    }
-    else{
-        alert("Not Edited")
-    }
+    
 
     //Access Input
     console.log("Email 👉️", userName);
@@ -101,38 +94,26 @@ const EditUserDetails = () => {
           </div>
         </div>
 
-        <div className="signupInputs">
-          {/* Email */}
-          <label className="signupLabel">Email</label>
-          <br />
-          <input
-            type="text"
-            name="email"
-            className="signupInput"
-            placeholder="eg. sarahosama123@gmail.com"
-            onChange={(event) => setEmail(event.target.value)}
-            value={email}
-          />
-        </div>
+
 
         <div className="inlineInput">
           <div className="signupInputs">
             {/* UserName */}
-            <label className="signupLabel">User Name</label>
+            <label className="signupLabel">Old Password</label>
             <br />
             <input
               type="text"
               name="userName"
               className="signupInput"
               placeholder="eg. SarahOsama1"
-              onChange={(event) => setUsername(event.target.value)}
+            //   onChange={(event) => setUsername(event.target.value)}
               value={userName}
             />
           </div>
 
           <div className="signupInputs">
             {/* Password */}
-            <label className="signupLabel">Password</label>
+            <label className="signupLabel">New Password </label>
             <br />
             <input
               type="password"
