@@ -3,17 +3,16 @@ import { useState ,useEffect} from "react";
 
 const accessToken = localStorage.getItem("AccessToken");
 
-const FanPageServices = (id) => {
-  const [seatNumbers, setSeatNumbers] = useState([]);
-  // console.log("ID",id);
+const ViewMatchFan = () => {
+  const [match, setMatch] = useState([]);
   useEffect(
     () => {
-      const getSeatsNumbers = async () => {
+      const viewmatchFan = async () => {
         let go = false;
-        let matchId=id; //"63ac971b639a27ff64cb629d";
-        // console.log("Token ", matchId);
+        console.log("token",accessToken);
+
         await axios
-          .get(`http://localhost:3001/fan/viewSeats/${matchId}`, {
+          .get("http://localhost:3001/fan/matchDetails?", {
             headers: {
               // header of request  | if Needed
               authToken: accessToken,
@@ -22,11 +21,11 @@ const FanPageServices = (id) => {
           })
           .then((response) => {
             // Body of response
-            // console.log(response);
+            // console.log(response.data);
             if (response.status === 200) {
               go = true;
-              const seatNumberServer = response.data;
-              setSeatNumbers(seatNumberServer);
+              const matchServer = response.data;
+              setMatch(matchServer);
             } else {
               go = false;
             }
@@ -34,13 +33,13 @@ const FanPageServices = (id) => {
 
         // return go
       };
-      getSeatsNumbers();
+      viewmatchFan();
     },
     [
       /* dependency array (value when it changes we want the code to run) */
     ]
   );
-  return seatNumbers;
+  return match;
 };
 
-export default FanPageServices;
+export default ViewMatchFan;

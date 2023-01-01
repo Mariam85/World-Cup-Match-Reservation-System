@@ -36,7 +36,7 @@ div.blank {
 
 .seat-select {
     margin: 10%;
-    background-color: rgb(212, 74, 212);
+    background-color: rgba(238, 173, 173, 0.234);
     height: 50px;
     display: flex;
     justify-content: flex-start;
@@ -46,4 +46,17 @@ div.blank {
 .seat-select>h1 {
     font-size: 20px;
     margin-left: 20px;
+}
+
+
+.ReserveButtonFan {
+    border-color: rgba(91, 26, 26, 0.747);
+    color: rgba(91, 26, 26, 0.747);
+    margin-right: 3px;
+    margin-left: auto;
+}
+
+.ReserveButtonFan:hover {
+    background-color: rgba(91, 26, 26, 0.747);
+    color: white;
 }
