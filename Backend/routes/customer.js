@@ -29,21 +29,39 @@ router.get('/viewSeats/:matchId',auth,async(req,res)=>{
             return res.status(400).send("No match id was provided.");  
         }  
 
-       var matchFound = await Match.findById(req.params.matchId).populate({
-           path: 'seats'
-       })        
+       var matchFound = await Match.findById(req.params.matchId).populate(
+        "seats").populate("venue");
+
        if(!matchFound)
        {
          return res.status(404).send("The match with this id is not found.");        
        }
        else
        {
+        var arrfinal=[];
         var obj = { };
         obj=matchFound.seats;
         newObj = obj.map(u =>{ if(u.reserved){return{number: u.seatNumber,isReserved: u.reserved}}
         else{return{number: u.seatNumber}}});
-        if(newObj)
-            {return res.status(200).send(newObj);}
+  
+        spr=matchFound.venue.seatsPerRow;
+        nr=matchFound.venue.numberOfRows;
+        console.log(spr)
+        console.log(nr)
+        ind=0;
+        for(p=0;p<nr;p++)
+        {
+            arrtmp=[];
+            for(l=0;l<spr;l++)
+            {
+                arrtmp.push(newObj[ind]);
+                ind++
+            }
+            arrfinal.push(arrtmp);
+        }
+
+        if(arrfinal)
+            {return res.status(200).send(arrfinal);}
         else
             {return res.status(400).send("Internal server error.");}
        }
