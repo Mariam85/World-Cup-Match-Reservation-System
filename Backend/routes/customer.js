@@ -46,8 +46,6 @@ router.get('/viewSeats/:matchId',auth,async(req,res)=>{
   
         spr=matchFound.venue.seatsPerRow;
         nr=matchFound.venue.numberOfRows;
-        console.log(spr)
-        console.log(nr)
         ind=0;
         for(p=0;p<nr;p++)
         {
