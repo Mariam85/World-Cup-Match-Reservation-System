@@ -1,6 +1,7 @@
 import "./Manger.css"
 import "bootstrap/dist/css/bootstrap.min.css";
 import FIFA from "../images/FIFA.png";
+import PAGE2022 from "../images/PagesCUP.gif";
 import { useState } from "react";
 import Collapse from 'react-bootstrap/Collapse';
 
@@ -21,9 +22,9 @@ function Manger() {
 
 
     return (
-        <div className="container-fluid row manger" >
-            <div className="left-cont col-7">
-                <h1>HELLO.....</h1>
+        <div className="container-fluid row manger " >
+            <div className="left-cont col-8">
+                <h1 className="hello-manger">HELLO Manager</h1>
                 {/* add match functionality */}
                 <button
                     onClick={() => setAddMatchForm(!openAddMatchForm)}
@@ -94,8 +95,8 @@ function Manger() {
 
 
             </div>
-            <div className="right-cont col-5 d-md-none d-none d-lg-block">
-                <img src={FIFA} className="img-fifa-manger img-fluid float-left" alt="" />
+            <div className="right-cont col-4 d-md-none d-none d-lg-block">
+                <img src={PAGE2022} className="img-fifa-manger img-fluid float-left" alt="" />
             </div>
         </div>
     )
