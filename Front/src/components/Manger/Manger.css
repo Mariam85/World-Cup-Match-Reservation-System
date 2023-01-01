@@ -1,7 +1,7 @@
 .manger{
     padding-right: 0px;
         background-color: rgba(247, 231, 231, 0.591);
-        height: 200vh;
+        height: 300vh;
 
 }
 
@@ -17,6 +17,10 @@
 }
 .img-fifa-manger{
     height: 100vh;
+    padding: 10%;
+}
+.hello-manger{
+  color:rgb(91, 26, 26);
 }
 
 .mangerButtons {
@@ -33,7 +37,7 @@
   text-decoration: none;
   margin-top: 5%;
   margin-left: 5%;
-  width: 50%;
+  width: 80%;
 }
 
 .mangerButtons:hover,
