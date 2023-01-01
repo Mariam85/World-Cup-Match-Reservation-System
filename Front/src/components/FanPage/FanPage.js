@@ -15,16 +15,25 @@ const FanPage = () => {
 
     const [isShown1, setIsShown1] = useState(false);
     const [isShown2, setIsShown2] = useState(false);
+    const [isShown3, setIsShown3] = useState(false);
 
     const handleClick1 = (event) => {
       // 👇️ toggle shown state
       setIsShown1((current) => !current);
       setIsShown2(false);
+      setIsShown3(false);
     };
     const handleClick2 = (event) => {
       // 👇️ toggle shown state
       setIsShown2((current) => !current);
       setIsShown1(false);
+      setIsShown3(false);
+    };
+    const handleClick3 = (event) => {
+      // 👇️ toggle shown state
+      setIsShown3((current) => !current);
+      setIsShown1(false);
+      setIsShown2(false);
     };
   return (
     <div className="container-fluid SiteAdminPage ">
@@ -57,6 +66,17 @@ const FanPage = () => {
           </button>
 
           {isShown2 && <EditUserDetails/>}
+
+          <button
+            onClick={handleClick3}
+            aria-controls="add-match-form"
+            // aria-expanded={openAddMatchForm}
+            className="buttonsAdmin"
+          >
+            Cancel Reservation
+          </button>
+
+          {isShown3 && <h1>Cancel</h1>}
         </div>
       </div>
 
