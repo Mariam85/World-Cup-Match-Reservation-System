@@ -2,6 +2,7 @@ import { useState } from "react"
 import "./AddMatchForm.css"
 import AddMatchServices from "./AddMatchServices";
 import GetTeam from "./GetTeams";
+import GetStadium from "./GetStadiums";
 
 const AddMatchForm = ({ _id, type }) => {
 
@@ -13,14 +14,14 @@ const AddMatchForm = ({ _id, type }) => {
     const [team2, setTeam2] = useState();
     const [dateAndTime, setDateandtime] = useState();
     const [time, setTime] = useState();
-    console.log("id", _id);
 
 
     const currentTeams = GetTeam();
-    console.log("this is the response", currentTeams)
     const Add = currentTeams.map(Add => Add)
-    const temp = "Hamada"
-    console.log(dateAndTime)
+
+    const currentStadium = GetStadium();
+    const stad = currentStadium.map(Add => Add)
+
 
     const handleSubmit = (e) => {
 
@@ -111,14 +112,18 @@ const AddMatchForm = ({ _id, type }) => {
                     <div className="addMatchInputs">
                         <label className="addMatchLabel">Stadium</label>
                         <br />
-                        <input
-                            type="text"
+                        <select
                             name="venue"
                             className="addMatchInput"
-                            placeholder="eg. new stadium"
                             onChange={(event) => setVenue(event.target.value)}
                             value={venue}
-                        />
+                        >
+
+                            {
+                                stad.map((address, key) => <option value={address.name}>{address.name}</option>)
+                            }
+
+                        </select>
                     </div>
 
                     <div className="addMatchInputs">
@@ -129,7 +134,7 @@ const AddMatchForm = ({ _id, type }) => {
                             type="text"
                             name="mainReferee"
                             className="addMatchInput"
-                            placeholder={temp}
+                            placeholder="eg. jack"
                             onChange={(event) => setMainReferee(event.target.value)}
                             value={mainReferee}
 
