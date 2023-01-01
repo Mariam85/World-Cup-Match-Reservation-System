@@ -51,6 +51,7 @@ function AddStadium() {
                     <label className="addMatchLabel">Stadium name</label>
                     <br />
                     <input
+                        required
                         type="text"
                         name="stadium"
                         className="addMatchInput"
@@ -64,26 +65,34 @@ function AddStadium() {
                     <label className="addMatchLabel">Seats per row</label>
                     <br />
                     <input
-                        type="text"
+                        required
+                        type="number"
+                        min="1"
+                        max="20"
                         name="seatsPerRow"
                         className="addMatchInput"
                         placeholder="eg. 5"
                         onChange={(event) => setSeatsPerRow(event.target.value)}
                         value={seatsPerRow}
                     />
+                    <span> 1 to 20 seats</span>
                 </div>
                 {/* number of rows */}
                 <div className="addMatchInputs">
                     <label className="addMatchLabel">Number of rows</label>
                     <br />
                     <input
-                        type="text"
+                        required
+                        type="number"
+                        min="1"
+                        max="30"
                         name="stadium"
                         className="addMatchInput"
                         placeholder="eg. 10"
                         onChange={(event) => setNumberOfRows(event.target.value)}
                         value={numberOfRows}
                     />
+                    <span> 1 to 30 rows</span>
                 </div>
                 <button className="addButton" type="submit">
                     Add

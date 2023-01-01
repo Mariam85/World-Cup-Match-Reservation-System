@@ -72,9 +72,9 @@ router.get('/viewSeats/:matchId',auth,async(req,res)=>{
 
 // The customer can edit their personal data (except for the username and email address).
 router.patch('/editProfile',auth,async(req,res)=>{
-try{    
-    // Checking that not all the body parameters are null.
-    if(req.body.firstName==null && req.body.lastName==null && req.body.password==null && req.body.birthdate==null && req.body.nationality==null && req.body.gender==null)
+try{     
+    // Checking that not all the body parameters are empty.
+    if(req.body.role=="" && req.body.newPassword=="" && req.body.firstName=="" && req.body.lastName=="" && req.body.password=="" && req.body.birthdate=="" && req.body.nationality=="" && req.body.gender=="")
     {
         return res.status(400).send("No body parameters were given.")
     }
@@ -87,13 +87,27 @@ try{
     }
     var newFirstName=foundUser.firstName; 
     var newLastName=foundUser.lastName; 
+    var oldPassword=foundUser.password;
     var newPassword=foundUser.password;
     var newBirthDate=foundUser.birthdate;
     var newNationality=foundUser.nationality;
     var newGender=foundUser.gender;
+    var wantsAuth=false;
+
 
     // Validating the parameters the user is editing.
-    if(req.body.firstName)
+    if(req.body.role)
+    {
+        if(req.body.role=="Manager" && foundUser.role=="Manager")
+        {
+            return res.status(400).send("This user is already a manager.")
+        }
+        else if(req.body.role=="Manager")
+        {
+            wantsAuth=true;
+        }
+    }
+    if(req.body.firstName!="")
     {
         if(req.body.firstName.length>0 && req.body.firstName.length<51 && allLetters(req.body.firstName))
         {
@@ -104,7 +118,7 @@ try{
             return res.status(400).send("The firstname entered is invalid.")
         }
     }
-    if(req.body.lastName)
+    if(req.body.lastName!="")
     {
         if(req.body.lastName.length>0 && req.body.lastName.length<51 && allLetters(req.body.lastName))
         {
@@ -115,19 +129,28 @@ try{
             return res.status(400).send("The lastname entered is invalid.")
         }
     }
-    if(req.body.password)
+    if(req.body.password!="" && req.body.newPassword!="")
     {
-        if(req.body.password.length>7 && req.body.password.length<51)
+        // req.body.newPassword
+        const validPass= await bcrypt.compare(req.body.password,oldPassword)
+        if(!validPass)
         {
-            const salt=await bcrypt.genSalt(10);
-            newPassword= await bcrypt.hash(req.body.password,salt)
+            // Invalid password
+            return res.status(400).send('Incorrect password.')
         }
+        if(req.body.newPassword.length>7 && req.body.newPassword.length<51)
+            {
+                const salt=await bcrypt.genSalt(10);
+                changePass= await bcrypt.hash(req.body.newPassword,salt);
+                newPassword=changePass;
+            }
         else
-        {
-            return res.status(400).send("The password entered is invalid.")
-        }
+            {
+                return res.status(400).send("The new password entered is invalid.")
+            }
+      
     }
-    if(req.body.birthdate)
+    if(req.body.birthdate!="")
     {
         var validDate=((new Date(req.body.birthdate)!=="Invalid Date") && !isNaN(new Date(req.body.birthdate)));
         if(!validDate)
@@ -136,7 +159,7 @@ try{
         }
         newBirthDate=req.body.birthdate;
     }
-    if(req.body.nationality)
+    if(req.body.nationality!="")
     {
         if(req.body.nationality.length>50 || !allLetters(req.body.nationality))
         {
@@ -144,7 +167,7 @@ try{
         }   
         newNationality=req.body.nationality;    
     }    
-    if(req.body.gender)
+    if(req.body.gender!="")
     {
         if(req.body.gender!="male" && req.body.gender!="female")
         {
@@ -155,7 +178,7 @@ try{
 
     // Updating the user's data.
     var result = await User.findByIdAndUpdate(userID,
-        {"firstName":newFirstName,"lastName":newLastName,"password":newPassword,"birthdate":newBirthDate,"nationality":newNationality,"gender":newGender}
+        {"firstName":newFirstName,"lastName":newLastName,"password":newPassword,"birthdate":newBirthDate,"nationality":newNationality,"gender":newGender,"role":"Fan","wantsAuthority":wantsAuth}
     );
 
     if(!result)
