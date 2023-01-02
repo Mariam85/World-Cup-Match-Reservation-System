@@ -7,6 +7,7 @@ const AddStadiumServices = {
         numberOfRows,
     ) => {
         let go = false;
+        try{
         await axios
             .post("http://localhost:3001/manager/addStadium", {
                 stadium,
@@ -26,16 +27,23 @@ const AddStadiumServices = {
             .then((response) => {
                 // Body of response
                 console.log(response);
-                if (response.status === 200) {
+                if (response.status === 201) {
                     go = true;
+                    alert("Successfully added a new stadium!");
                     // const alert = useAlert();
                     // alert.show(response.data)
                 } else {
                     go = false;
+                    alert("Failed to add new stadium!");
                 }
             });
 
         return go;
+        }
+        catch(error)
+        {
+            alert(error.response.data);
+        }
     },
 
 }

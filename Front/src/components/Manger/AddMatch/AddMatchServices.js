@@ -9,6 +9,7 @@ const AddMatchServices = {
         teams,
     ) => {
         let go = false;
+        try{
         await axios
           .post("http://localhost:3001/manager/createMatch",{venue,
           mainReferee,
@@ -31,6 +32,7 @@ const AddMatchServices = {
             // Body of response
             console.log(response);
             if (response.status === 200) {
+              alert("Successfully created a new match!");
               go = true;
             } else {
               go = false;
@@ -38,6 +40,12 @@ const AddMatchServices = {
           });
     
         return go;
+        }
+      catch(error)
+      {
+        console.log(error.response.data)
+        alert(error.response.data);
+      }  
       },
 
       edit: async (_id,

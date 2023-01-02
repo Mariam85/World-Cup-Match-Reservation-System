@@ -47,6 +47,8 @@
     "jsonwebtoken": "^8.5.1",
     "kareem": "^2.5.0",
     "lodash": "^4.17.21",
+    "math": "^0.0.3",
+    "Math": "^0.0.1-security",
     "media-typer": "^0.3.0",
     "memory-pager": "^1.5.0",
     "merge-descriptors": "^1.0.1",

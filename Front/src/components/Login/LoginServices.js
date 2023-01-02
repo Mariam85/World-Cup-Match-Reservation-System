@@ -5,6 +5,7 @@ const LoginServices = {
   login: async (userName, password) => {
     let go = false;
     let role = {};
+    try{
     await axios
       .post("http://localhost:3001/auth", {
         headers: {
@@ -18,6 +19,7 @@ const LoginServices = {
         // Body of response
         // console.log(response.data);
         if (response.status === 200) {
+          alert("Successfully logged in!")
           go = true;
           localStorage.removeItem("AccessToken");
           localStorage.setItem("AccessToken", response.data);
@@ -26,11 +28,17 @@ const LoginServices = {
           role = decoded.role;
           console.log(role);
         } else {
+          alert("Invalid login. Incorrect email or password.")  
           go = false;
         }
       });
 
     return role;
+    }
+    catch(error)
+    {
+      alert("Invalid login. Incorrect email or password.")  
+    }
   },
 };
 

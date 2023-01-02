@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose=require("mongoose")
+const Math=require("math");
 var router = express.Router();
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
@@ -118,7 +119,6 @@ var stadiumChosen= await Stadium.findOne({"name":req.body.venue});
     var matchesAssignedTwo = teamsInfo[1].matches; 
     var matcheslengthOne=0;
     var matcheslengthTwo=0;
-    var dayOnly=req.body.dateAndTime.substring(0,req.body.dateAndTime.length-12);
 
     if(matchesAssignedOne)
     {
@@ -131,30 +131,36 @@ var stadiumChosen= await Stadium.findOne({"name":req.body.venue});
 
     var iteratorOne=0
     var iteratorTwo=0
-    console.log(matchesAssignedOne)
-    console.log(matchesAssignedTwo)
     while(iteratorOne!=matcheslengthOne || iteratorTwo!=matcheslengthTwo)
     {
         if(iteratorOne!=matcheslengthOne)
         {
-            if(matchesAssignedOne[iteratorOne].dateAndTime.toUTCString().includes(dayOnly))
-            {
-                return res.status(400).send("This team has another match at the same time.");
-            }
+            // Can't have 2 matches at the same day at the same duration of another match, each match lasts 3 hours.
+
+                let d1=new Date(matchesAssignedOne[iteratorOne].dateAndTime)
+                let d2=new Date(req.body.dateAndTime) // diff/(60*60*1000)
+                if(Math.abs(d2-d1)/(60*60*1000) < 3)
+                {
+                    return res.status(400).send("This team has another match at the same time.");
+                }
+            
             iteratorOne++
         }
         if(iteratorTwo!=matcheslengthTwo)
         {
-            if(matchesAssignedTwo[iteratorTwo].dateAndTime.toUTCString().includes(dayOnly))
-            {
-                return res.status(400).send("This team has another match at the same time.");
-            }
+                let d1=new Date(matchesAssignedTwo[iteratorTwo].dateAndTime)
+                let d2=new Date(req.body.dateAndTime) // diff/(60*60*1000)
+                if(Math.abs(d2-d1)/(60*60*1000) < 3)
+                {
+                    return res.status(400).send("This team has another match at the same time.");
+                }
+          
             iteratorTwo++
         }
     }
    
   var stadiumChosen= await Stadium.findOne({"name":req.body.venue});
-  console.log(stadiumChosen)
+  //console.log(stadiumChosen)
   var numRows=stadiumChosen.numberOfRows;
   var numSeatsPerRow=stadiumChosen.seatsPerRow;
   var totalNumSeats= numRows*numSeatsPerRow;
